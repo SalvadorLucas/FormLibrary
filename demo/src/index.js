@@ -1,15 +1,13 @@
-import React, {Component} from 'react'
-import {render} from 'react-dom'
-
-import Example from '../../src'
+import React, { Component } from 'react'
+import { render } from 'react-dom'
+import Form from './simpleForm'
 
 class Demo extends Component {
   render() {
     return <div>
-      <h1>ebs-form Demo</h1>
-      <Example/>
+      <Form />
     </div>
   }
 }
 
-render(<Demo/>, document.querySelector('#demo'))
+render(<Demo />, document.querySelector('#demo'))
