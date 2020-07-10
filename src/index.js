@@ -1,11 +1,49 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Grid, Button } from '@material-ui/core'
+import {
+  Grid,
+  makeStyles,
+  AccordionDetails,
+  AccordionSummary,
+  Card,
+  CardActions,
+  CardContent,
+  Typography,
+  Button
+} from '@material-ui/core/'
 import Accordion from './Components/organisms/Accordion'
 import GridForm from './Components/molecules/Grid'
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    flexBasis: '33.33%',
+    flexShrink: 0,
+  },
+  secondaryHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary,
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 12,
+  },
+}))
 function Form(props) {
   const [formValues, setFormValues] = React.useState(null)
   const { definition, onCancel, onSubmit } = props
+  const classes = useStyles()
+
   if (formValues === null) {
     if (definition.groups) {
       let keys = {}
@@ -33,8 +71,22 @@ function Form(props) {
   }
   return (
     <form onSubmit={sendValues}>
-      {definition.groups ?
-        <Accordion {...definition} onChange={onChange}>
+      <Card
+        className={classes.root}
+        data-testid={'AccordionTestId'}
+      >
+        <CardContent>
+          <Typography variant="h5" component="h2">
+            {definition.title}
+          </Typography>
+          <Typography variant="body2" component="p">
+            {definition.description}
+          </Typography>
+          {definition.groups ?
+            <Accordion {...definition} onChange={onChange} />
+            : <GridForm {...definition} onChange={onChange} />}
+        </CardContent>
+        <CardActions>
           <Grid
             container
             direction="row"
@@ -42,15 +94,15 @@ function Form(props) {
             alignItems="flex-start"
             spacing={1}
           >
-            <Grid item xs={4} sm={2} md={1} lg={1} xl={1}>
+            <Grid item xs={'auto'} sm={'auto'} md={'auto'} lg={'auto'} xl={'auto'}>
               <Button variant='outlined' color='primary' type='submit'>Submit</Button>
             </Grid>
-            <Grid item xs={4} sm={2} md={1} lg={1} xl={1}>
+            <Grid item xs={'auto'} sm={'auto'} md={'auto'} lg={'auto'} xl={'auto'}>
               <Button variant='outlined' color='primary' onClick={onCancel}>Cancel</Button>
             </Grid>
           </Grid>
-        </Accordion>
-        : <GridForm {...definition} onChange={onChange} />}
+        </CardActions>
+      </Card>
     </form>
   )
 }

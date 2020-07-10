@@ -18,7 +18,7 @@ import Tooltip from '../Tootip'
 const GridMolecule = React.forwardRef((props, ref) => {
 
   // Properties of the organism
-  const { name, label, items, direction, justify, alignItems, onChange, children, ...rest } = props
+  const { name, title, items, direction, justify, alignItems, onChange, children, ...rest } = props
   return (
     /* 
      @prop data-testid: Id to use inside grid.test.js file.
@@ -37,7 +37,15 @@ const GridMolecule = React.forwardRef((props, ref) => {
       {items.map((item, key) => {
         if (item.helper) {
           return (
-            <Grid item key={key} xs={'auto'} sm={item.sm} md={item.md} lg={item.lg} xl={'auto'}>
+            <Grid
+              item
+              key={key}
+              xs={'auto'}
+              sm={item.sm ? item.sm : "auto"}
+              md={item.md ? item.md : "auto"}
+              lg={item.lg ? item.lg : "auto"}
+              xl={'auto'}
+            >
               <Tooltip item={item} onChange={onChange} />
             </Grid>
           )
@@ -45,43 +53,99 @@ const GridMolecule = React.forwardRef((props, ref) => {
           switch (item.component.toLowerCase()) {
             case 'textfield':
               return (
-                <Grid item key={key} xs={'auto'} sm={item.sm} md={item.md} lg={item.lg} xl={'auto'}>
+                <Grid
+                  item
+                  key={key}
+                  xs={'auto'}
+                  sm={item.sm ? item.sm : "auto"}
+                  md={item.md ? item.md : "auto"}
+                  lg={item.lg ? item.lg : "auto"}
+                  xl={'auto'}
+                >
                   <TextField item={item} onChange={onChange} />
                 </Grid>
               )
             case 'dropdown':
               return (
-                <Grid item key={key} xs={'auto'} sm={item.sm} md={item.md} lg={item.lg} xl={'auto'}>
+                <Grid
+                  item
+                  key={key}
+                  xs={'auto'}
+                  sm={item.sm ? item.sm : "auto"}
+                  md={item.md ? item.md : "auto"}
+                  lg={item.lg ? item.lg : "auto"}
+                  xl={'auto'}
+                >
                   <DropDown item={item} onChange={onChange} />
                 </Grid>
               )
             case 'button':
               return (
-                <Grid item key={key} xs={'auto'} sm={item.sm} md={item.md} lg={item.lg} xl={'auto'}>
+                <Grid
+                  item
+                  key={key}
+                  xs={'auto'}
+                  sm={item.sm ? item.sm : "auto"}
+                  md={item.md ? item.md : "auto"}
+                  lg={item.lg ? item.lg : "auto"}
+                  xl={'auto'}
+                >
                   <Button item={item} onChange={onChange} />
                 </Grid>
               )
             case 'number':
               return (
-                <Grid item key={key} xs={'auto'} sm={item.sm} md={item.md} lg={item.lg} xl={'auto'}>
+                <Grid
+                  item
+                  key={key}
+                  xs={'auto'}
+                  sm={item.sm ? item.sm : "auto"}
+                  md={item.md ? item.md : "auto"}
+                  lg={item.lg ? item.lg : "auto"}
+                  xl={'auto'}
+                >
                   <Number item={item} onChange={onChange} />
                 </Grid>
               )
             case 'email':
               return (
-                <Grid item key={key} xs={'auto'} sm={item.sm} md={item.md} lg={item.lg} xl={'auto'}>
+                <Grid
+                  item
+                  key={key}
+                  xs={'auto'}
+                  sm={item.sm ? item.sm : "auto"}
+                  md={item.md ? item.md : "auto"}
+                  lg={item.lg ? item.lg : "auto"}
+                  xl={'auto'}
+                >
                   <Email item={item} onChange={onChange} />
                 </Grid>
               )
             case 'date':
               return (
-                <Grid item key={key} xs={'auto'} sm={item.sm} md={item.md} lg={item.lg} xl={'auto'}>
+                <Grid
+                  item
+                  key={key}
+                  xs={'auto'}
+                  sm={item.sm ? item.sm : "auto"}
+                  md={item.md ? item.md : "auto"}
+                  lg={item.lg ? item.lg : "auto"}
+                  xl={'auto'}
+                >
                   <Date item={item} onChange={onChange} />
                 </Grid>
               )
             case 'uploadfile':
-              return(
-                <Grid item key={key} xs={'auto'} sm={item.sm} md={item.md} lg={item.lg} xl={'auto'}>
+              return (
+                <Grid
+                  item
+                  key={key}
+                  xs={'auto'}
+                  sm={item.sm ? item.sm : "auto"}
+                  md={item.md ? item.md : "auto"}
+                  lg={item.lg ? item.lg : "auto"}
+                  xl={'auto'}
+                >
                   <UploadFile item={item} onChange={onChange} />
                 </Grid>
               )
@@ -94,7 +158,7 @@ const GridMolecule = React.forwardRef((props, ref) => {
 // Type and required properties
 GridMolecule.propTypes = {
   name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   items: PropTypes.array.isRequired,
   direction: PropTypes.string,

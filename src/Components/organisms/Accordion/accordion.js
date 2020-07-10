@@ -60,49 +60,32 @@ const AccordionOrganism = React.forwardRef((props, ref) => {
     /* 
      @prop data-testid: Id to use inside accordion.test.js file.
      */
-    <Card
-      className={classes.root}
-      data-testid={'AccordionTestId'}
-      ref={ref}
+    <Grid
+      container
+      direction={direction}
+      justify={justify}
+      alignItems={alignItems}
+      alignContent='space-around' //'stretch' 'center' 'flex-start' 'flex-end' 'space-between' 'space-around'
+      data-testid={'GridTestId'}
+      spacing={1}
+      {...rest}
     >
-      <CardContent>
-        <Typography variant="h5" component="h2">
-          {title}
-        </Typography>
-        <Typography variant="body2" component="p">
-          {description}
-        </Typography>
-        <Grid
-          container
-          direction={direction}
-          justify={justify}
-          alignItems={alignItems}
-          alignContent='space-around' //'stretch' 'center' 'flex-start' 'flex-end' 'space-between' 'space-around'
-          data-testid={'GridTestId'}
-          spacing={1}
-          {...rest}
-        >
-          {groups.map((group, key) => {
-            return (
-              <Grid item key={key} xs={12} sm={12} md={12} lg={12} xl={12}>
-                <Accordion expanded={expanded === `panel${key}`} onChange={() => handleChange(`panel${key}`)} key={key}>
-                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography className={classes.heading}>{group.label}</Typography>
-                    <Typography className={classes.secondaryHeading}>{group.description}</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <GridForm {...group} onChange={onChange} />
-                  </AccordionDetails>
-                </Accordion>
-              </Grid>
-            )
-          })}
-        </Grid>
-      </CardContent>
-      <CardActions>
-        {children}
-      </CardActions>
-    </Card>
+      {groups.map((group, key) => {
+        return (
+          <Grid item key={key} xs={12} sm={12} md={12} lg={12} xl={12}>
+            <Accordion expanded={expanded === `panel${key}`} onChange={() => handleChange(`panel${key}`)} key={key}>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography className={classes.heading}>{group.title}</Typography>
+                <Typography className={classes.secondaryHeading}>{group.description}</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <GridForm {...group} onChange={onChange} />
+              </AccordionDetails>
+            </Accordion>
+          </Grid>
+        )
+      })}
+    </Grid>
   )
 })
 // Type and required properties
@@ -119,8 +102,8 @@ AccordionOrganism.propTypes = {
 // Default properties
 AccordionOrganism.defaultProps = {
   name: null,
-  title: null,
-  description: null,
+  title: '',
+  description: '',
   direction: 'row',
   justify: 'flex-start',
   alignItems: 'flex-start'

@@ -35,8 +35,9 @@ const SimpleForm = React.forwardRef((props, ref) => {
         })
     }
     const normalDefinition = {
-        name: 'normalForm',
-        label: 'Normal Form',
+        name: 'normal',
+        title: 'Normal', // (optional)
+        languagelabelid: 'language.label.id', // (optional)
         items: [
             {
                 sm: 2, // 1 - 12 (optional but suggested)
@@ -290,7 +291,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
         groups: [
             {
                 name: 'requestCreation',
-                label: 'Request Creation',
+                title: 'Request Creation',
                 description: 'Request Creation description',
                 items: [
                     {
@@ -367,7 +368,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
             },
             {
                 name: 'requesterSection',
-                label: 'Requester Section',
+                title: 'Requester Section',
                 description: 'Requester Section description',
                 items: [
                     {
@@ -477,7 +478,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
             },
             {
                 name: 'serviceSection',
-                label: 'Service Section',
+                title: 'Service Section',
                 description: 'Service Section description',
                 items: [
                     {
@@ -556,9 +557,9 @@ const SimpleForm = React.forwardRef((props, ref) => {
 
     return (
         <div>
-            {/* <Form definition={normalDefinition} onSubmit={(values) => {
+            <Form definition={normalDefinition} onSubmit={(values) => {
                 console.log(values)
-            }} /> */}
+            }} />
             <Form definition={accordionDefinition} onSubmit={(values) => {
                 console.log(values)
             }} />
