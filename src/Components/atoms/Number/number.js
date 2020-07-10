@@ -5,7 +5,7 @@ import NumberFormat from 'react-number-format'
 import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl'
 // GLOBALIZATION
-import {FormattedMessage} from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 // STYLES
 import { makeStyles } from '@material-ui/core/styles'
 // IMPORT STYLES FROM .json or .js FILES
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 function NumberFormatCustom(props) {
   const { inputRef, onChange, prefix, name, type, ...rest } = props
 
-  switch(type){
+  switch (type) {
     case 'number':
       return (
         <NumberFormat
@@ -74,7 +74,7 @@ NumberFormatCustom.propTypes = {
 const NumberAtom = React.forwardRef((props, ref) => {
   // Properties of the atom
   const { item, onChange, ...rest } = props
-  const { name, label, defaultValue, type, languageLabelId, helper, disabled } = item
+  const { name, label, defaultValue, type, languagelabelid, helper, disabled } = item
   const [value, setValue] = React.useState(defaultValue)
   const classes = useStyles()
   React.useEffect(() => {
@@ -103,7 +103,7 @@ const NumberAtom = React.forwardRef((props, ref) => {
         id="formatted-numberformat-input"
         InputLabelProps={{ shrink: true }}
         label={label}
-        // label={<FormattedMessage id={languageLabelId?languageLabelId:''} defaultMessage={label}/>}
+        // label={<FormattedMessage id={languagelabelid?languagelabelid:''} defaultMessage={label}/>}
         value={value}
         name={name}
         type={type}

@@ -34,22 +34,23 @@ function Form(props) {
   return (
     <form onSubmit={sendValues}>
       {definition.groups ?
-        <Accordion {...definition} onChange={onChange} />
+        <Accordion {...definition} onChange={onChange}>
+          <Grid
+            container
+            direction="row"
+            justify="flex-end"
+            alignItems="flex-start"
+            spacing={1}
+          >
+            <Grid item xs={4} sm={2} md={1} lg={1} xl={1}>
+              <Button variant='outlined' color='primary' type='submit'>Submit</Button>
+            </Grid>
+            <Grid item xs={4} sm={2} md={1} lg={1} xl={1}>
+              <Button variant='outlined' color='primary' onClick={onCancel}>Cancel</Button>
+            </Grid>
+          </Grid>
+        </Accordion>
         : <GridForm {...definition} onChange={onChange} />}
-      <Grid
-        container
-        direction="row"
-        justify="flex-end"
-        alignItems="flex-start"
-        spacing={1}
-      >
-        <Grid item xs={4} sm={2} md={1} lg={1} xl={1}>
-          <Button variant='outlined' color='primary' type='submit'>Submit</Button>
-        </Grid>
-        <Grid item xs={4} sm={2} md={1} lg={1} xl={1}>
-          <Button variant='outlined' color='primary' onClick={onCancel}>Cancel</Button>
-        </Grid>
-      </Grid>
     </form>
   )
 }

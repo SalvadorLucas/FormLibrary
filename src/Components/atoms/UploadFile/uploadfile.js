@@ -13,7 +13,7 @@ import { DropzoneDialog } from 'material-ui-dropzone'
 const UploadFileAtom = React.forwardRef((props, ref) => {
   // Properties of the atom
   const { item, onChange, ...rest } = props
-  const { disabled, name, label, languageLabelId } = item
+  const { disabled, name, label, languagelabelid } = item
   const [open, setOpen] = React.useState(false)
 
   return (
@@ -28,10 +28,11 @@ const UploadFileAtom = React.forwardRef((props, ref) => {
         disabled={disabled}
         onClick={() => setOpen(true)}
         name={name}
-        >
+      >
         {label}
-    </Button>
+      </Button>
       <DropzoneDialog
+        acceptedFiles={['.csv']}
         cancelButtonText={"cancel"}
         submitButtonText={"submit"}
         maxFileSize={5000000}

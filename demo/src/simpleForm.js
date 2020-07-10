@@ -6,7 +6,7 @@ import axios from 'axios'
 const SimpleForm = React.forwardRef((props, ref) => {
     const [idsValues, setIdsValues] = React.useState({})
     const handleChange = (event) => {
-        console.log(event.target.value)
+        alert('change')
     }
     const onClick = () => {
         alert('onClick')
@@ -19,7 +19,6 @@ const SimpleForm = React.forwardRef((props, ref) => {
             //     reject(error)
             // })
             let newValues = idsValues
-            console.log(event.detail.value)         
             newValues[event.detail.value.fieldName] = event.detail.value.value
             setIdsValues(newValues)
             if (newValues['tissueType'] && newValues['crop']) {
@@ -44,21 +43,24 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 md: 3, // 1 - 12 (optional but suggested)
                 lg: 3, // 1 - 12 (optional but suggested)
                 component: 'textfield', // textField || Number || Email || DropDown || Date || Button
-                name: 'requestCode', // (optional but suggested)
-                label: 'Request Code', // required
+                name: 'entityListCode', // (optional but suggested)
+                label: 'Entity List Code', // required
                 type: 'text', // text || multiline (types for component:'textField')
                 disabled: true,
-                isRequired: true,
-                defaultValue:'Hello',
-                helper: 'Help',
+                // isRequired: true,
+                // defaultValue:'Hello',
+                // helper: 'Help',
                 controlledByEvent: 'myEvent',
-                handleDispatchEvent: handleDispatchEvent
+                handleDispatchEvent: handleDispatchEvent,
+                // languagelabelid: 'language.label.id'
             },
             {
                 component: 'Button',
                 name: 'search',
                 label: 'Search',
-                onClick: onClick,
+                // onClick: onClick,
+                // disabled: true,
+                // languagelabelid: 'language.label.id'
                 sm: 2,
                 md: 1,
                 lg: 1,
@@ -66,12 +68,15 @@ const SimpleForm = React.forwardRef((props, ref) => {
             {
                 component: 'number',
                 isRequired: false,
-                type: 'number', //text, multiline,
+                type: 'number', //number, tel,
                 name: 'totalEntities',
                 label: 'Total Entities',
+                // disabled: true,
+                // defaultValue: 12,
                 sm: 2,
                 md: 3,
                 lg: 3,
+                // languagelabelid: 'language.label.id'
                 // helper: 'Help'
             },
             {
@@ -92,7 +97,14 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 lg: 4,
                 uri: 'http://localhost:28080/graphql', //optional
                 entity: 'Country', //optional
+                // itemOptions: [
+                //     { id: 1, name: 'Uno'},
+                //     { id: 2, name: 'Dos'},
+                //     { id: 3, name: 'Tres'}
+                // ],
                 itemLabel: 'name', // need by api
+                // disabled: true,
+                // isRequired: true,
                 customEventName: 'myEvent',
                 // handleChange: handleChange,
             },
@@ -121,16 +133,27 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 // helper: 'Help'
             },
             {
+                component: 'textfield',
+                isRequired: false,
+                type: 'text', //number, multiline
+                name: 'requester',
+                label: 'Requester',
+                sm: 4,
+                md: 4,
+                lg: 4,
+                // helper: 'Help'
+            },
+            {
                 sm: 4,
                 md: 4,
                 lg: 4,
                 component: 'email',
-                name: 'requester',
-                label: 'Requester',
-                defaultValue: 'example@mail.com', // (optional)
-                isRequired: false, // (optional)
-                disabled: false, // (optional)
-                languageLabelId: 'language.label.id', // (optional but suggested)
+                name: 'requesterEmail',
+                label: `Requester's Email`,
+                // defaultValue: 'example@mail.com', // (optional)
+                // isRequired: false, // (optional)
+                // disabled: true, // (optional)
+                languagelabelid: 'language.label.id', // (optional but suggested)
                 // helper: 'Help', // (optional but suggested)
             },
             {
@@ -152,6 +175,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 sm: 4,
                 md: 4,
                 lg: 4,
+                // defaultValue: 's.ortega@cgiar.org',
                 // helper: 'Help'
             },
             {
@@ -172,9 +196,8 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 component: 'date',
                 name: 'submitionDate',
                 label: 'Submition Date',
-                isRequired: false, // (optional)
-                defaultValue: '09/03/2020', // (optional)
-                languageLabelId: 'language.label.id', // (optional but suggested)
+                // disabled: true, // optional
+                languagelabelid: 'language.label.id', // (optional but suggested)
                 // helper: 'Help', // (optional)
             },
             {
@@ -242,17 +265,301 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 type: 'multiline', //number, multiline
                 name: 'instructions',
                 label: 'Instructions Details',
-                sm: 12,
-                md: 12,
-                lg: 12,
+                sm: 8,
+                md: 8,
+                lg: 8,
                 // helper: 'Help'
             },
+            {
+                component: 'uploadFile',
+                name: 'file',
+                label: 'Upload File',
+                sm: 12,
+                md: 2,
+                lg: 2,
+                // disabled: true,
+                // helper: 'Help'
+            }
+        ]
+    }
+    const accordionDefinition = {
+        name: 'accordion',
+        title: 'Accordion', // (optional)
+        description: 'Description', // (optional)
+        languagelabelid: 'language.label.id', // (optional)
+        groups: [
+            {
+                name: 'requestCreation',
+                label: 'Request Creation',
+                description: 'Request Creation description',
+                items: [
+                    {
+                        sm: 2, // 1 - 12 (optional but suggested)
+                        md: 3, // 1 - 12 (optional but suggested)
+                        lg: 3, // 1 - 12 (optional but suggested)
+                        component: 'textfield', // textField || Number || Email || DropDown || Date || Button
+                        name: 'entityListCode', // (optional but suggested)
+                        label: 'Entity List Code', // required
+                        type: 'text', // text || multiline (types for component:'textField')
+                        disabled: true,
+                        // isRequired: true,
+                        // defaultValue:'Hello',
+                        // helper: 'Help',
+                        controlledByEvent: 'myEvent',
+                        handleDispatchEvent: handleDispatchEvent,
+                        // languagelabelid: 'language.label.id'
+                    },
+                    {
+                        component: 'Button',
+                        name: 'search',
+                        label: 'Search',
+                        // onClick: onClick,
+                        // disabled: true,
+                        // languagelabelid: 'language.label.id'
+                        sm: 2,
+                        md: 1,
+                        lg: 1,
+                    },
+                    {
+                        component: 'number',
+                        isRequired: false,
+                        type: 'number', //text, multiline,
+                        name: 'totalEntities',
+                        label: 'Total Entities',
+                        // disabled: true,
+                        // defaultValue: 12,
+                        sm: 2,
+                        md: 3,
+                        lg: 3,
+                        // languagelabelid: 'language.label.id'
+                        // helper: 'Help'
+                    },
+                    {
+                        component: 'Button',
+                        name: 'view',
+                        label: 'View',
+                        onClick: onClick,
+                        sm: 2,
+                        md: 1,
+                        lg: 1,
+                    },
+                    {
+                        component: 'dropDown',
+                        name: 'tissueType',
+                        label: 'Tissue Type',
+                        sm: 4,
+                        md: 4,
+                        lg: 4,
+                        uri: 'http://localhost:28080/graphql', //optional
+                        entity: 'Country', //optional
+                        // itemOptions: [
+                        //     { id: 1, name: 'Uno'},
+                        //     { id: 2, name: 'Dos'},
+                        //     { id: 3, name: 'Tres'}
+                        // ],
+                        itemLabel: 'name', // need by api
+                        // disabled: true,
+                        // isRequired: true,
+                        customEventName: 'myEvent',
+                        // handleChange: handleChange,
+                    }
+                ]
+            },
+            {
+                name: 'requesterSection',
+                label: 'Requester Section',
+                description: 'Requester Section description',
+                items: [
+                    {
+                        component: 'dropDown',
+                        name: 'crop',
+                        label: 'Crop',
+                        sm: 4,
+                        md: 4,
+                        lg: 4,
+                        uri: 'http://localhost:28080/graphql', //optional
+                        entity: 'Crop', //optional
+                        itemLabel: 'description',
+                        customEventName: 'myEvent',
+                    },
+                    {
+                        component: 'dropDown',
+                        name: 'program',
+                        label: 'Program',
+                        sm: 4,
+                        md: 4,
+                        lg: 4,
+                        uri: 'http://localhost:28080/graphql', //optional
+                        entity: 'Purpose', //optional
+                        itemLabel: 'name',
+                        // helper: 'Help'
+                    },
+                    {
+                        component: 'textfield',
+                        isRequired: false,
+                        type: 'text', //number, multiline
+                        name: 'requester',
+                        label: 'Requester',
+                        sm: 4,
+                        md: 4,
+                        lg: 4,
+                        // helper: 'Help'
+                    },
+                    {
+                        sm: 4,
+                        md: 4,
+                        lg: 4,
+                        component: 'email',
+                        name: 'requesterEmail',
+                        label: `Requester's Email`,
+                        // defaultValue: 'example@mail.com', // (optional)
+                        // isRequired: false, // (optional)
+                        // disabled: true, // (optional)
+                        languagelabelid: 'language.label.id', // (optional but suggested)
+                        // helper: 'Help', // (optional but suggested)
+                    },
+                    {
+                        component: 'textfield',
+                        isRequired: false,
+                        type: 'text', //number, multiline
+                        name: 'contact',
+                        label: 'Contact',
+                        sm: 4,
+                        md: 4,
+                        lg: 4,
+                        // helper: 'Help'
+                    },
+                    {
+                        component: 'email',
+                        isRequired: false,
+                        name: 'adminEmail',
+                        label: 'Admin Email',
+                        sm: 4,
+                        md: 4,
+                        lg: 4,
+                        // defaultValue: 's.ortega@cgiar.org',
+                        // helper: 'Help'
+                    },
+                    {
+                        component: 'textfield',
+                        isRequired: false,
+                        type: 'text', //number, multiline
+                        name: 'changeAccount',
+                        label: 'Change Account',
+                        sm: 4,
+                        md: 4,
+                        lg: 4,
+                        // helper: 'Help'
+                    },
+                    {
+                        sm: 4,
+                        md: 4,
+                        lg: 4,
+                        component: 'date',
+                        name: 'submitionDate',
+                        label: 'Submition Date',
+                        // disabled: true, // optional
+                        languagelabelid: 'language.label.id', // (optional but suggested)
+                        // helper: 'Help', // (optional)
+                    },
+                    {
+                        component: 'textfield',
+                        isRequired: false,
+                        type: 'text', //number, multiline
+                        name: 'completeBy',
+                        label: 'Complete By',
+                        sm: 4,
+                        md: 4,
+                        lg: 4,
+                        // helper: 'Help'
+                    }
+                ]
+            },
+            {
+                name: 'serviceSection',
+                label: 'Service Section',
+                description: 'Service Section description',
+                items: [
+                    {
+                        component: 'dropDown',
+                        name: 'service',
+                        label: 'Service',
+                        sm: 4,
+                        md: 4,
+                        lg: 4,
+                        uri: 'http://localhost:28080/graphql', //optional
+                        entity: 'Service', //optional
+                        itemLabel: 'name',
+                        // helper: 'Help',
+                    },
+                    {
+                        component: 'dropDown',
+                        name: 'serviceProvider',
+                        label: 'Service Provider',
+                        sm: 4,
+                        md: 4,
+                        lg: 4,
+                        uri: 'http://localhost:28080/graphql', //optional
+                        entity: 'ServiceProvider', //optional
+                        itemLabel: 'name',
+                        // helper: 'Help'
+                    },
+                    {
+                        component: 'dropDown',
+                        name: 'purpose',
+                        label: 'Purpose',
+                        sm: 4,
+                        md: 4,
+                        lg: 4,
+                        uri: 'http://localhost:28080/graphql', //optional
+                        entity: 'Purpose', //optional
+                        itemLabel: 'name',
+                        // helper: 'Help'
+                    },
+                    {
+                        component: 'dropDown',
+                        name: 'objective',
+                        label: 'Objective',
+                        sm: 4,
+                        md: 4,
+                        lg: 4,
+                        uri: 'http://localhost:28080/graphql', //optional
+                        entity: 'Crop', //optional
+                        itemLabel: 'description',
+                        // helper: 'Help'
+                    },
+                    {
+                        component: 'textfield',
+                        isRequired: false,
+                        type: 'multiline', //number, multiline
+                        name: 'instructions',
+                        label: 'Instructions Details',
+                        sm: 8,
+                        md: 8,
+                        lg: 8,
+                        // helper: 'Help'
+                    },
+                    {
+                        component: 'uploadFile',
+                        name: 'file',
+                        label: 'Upload File',
+                        sm: 12,
+                        md: 2,
+                        lg: 2,
+                        // disabled: true,
+                        // helper: 'Help'
+                    }
+                ]
+            }
         ]
     }
 
     return (
         <div>
-            <Form definition={normalDefinition} onSubmit={(values) => {
+            {/* <Form definition={normalDefinition} onSubmit={(values) => {
+                console.log(values)
+            }} /> */}
+            <Form definition={accordionDefinition} onSubmit={(values) => {
                 console.log(values)
             }} />
         </div>

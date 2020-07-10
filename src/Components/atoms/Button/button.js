@@ -12,7 +12,7 @@ import Button from '@material-ui/core/Button'
 const ButtonAtom = React.forwardRef((props, ref) => {
   // Properties of the atom
   const { item, onChange, ...rest } = props
-  const { disabled, name, label, languageLabelId, onClick } = item
+  const { disabled, name, label, languagelabelid, onClick } = item
 
   return (
     /* 
@@ -29,7 +29,7 @@ const ButtonAtom = React.forwardRef((props, ref) => {
       {...rest}
       ref={ref}
     >
-      {/* <FormattedMessage id={languageLabelId?languageLabelId:''} defaultMessage={label}/> */}
+      {/* <FormattedMessage id={languagelabelid?languagelabelid:''} defaultMessage={label}/> */}
       {label}
     </Button>
   )

@@ -24,8 +24,11 @@ const DateAtom = React.forwardRef((props, ref) => {
   const classes = useStyles()
   // Properties of the atom
   const { item, onChange, ...rest } = props
-  const { name, label, defaultValue, languageLabelId, isRequired } = item
+  const { name, label, defaultValue, disabled, languagelabelid } = item
   const [date, setDate] = React.useState(new Date())
+  React.useEffect(()=>{
+    onChange(name, date)
+  },[])
   const handleChange = (date) => {
     setDate(date)
     onChange(name, date)
@@ -45,12 +48,13 @@ const DateAtom = React.forwardRef((props, ref) => {
         <KeyboardDatePicker
           autoOk
           variant="inline"
-          // label={<FormattedMessage id={languageLabelId ? languageLabelId : ''} defaultMessage={label} />}
+          // label={<FormattedMessage id={languagelabelid ? languagelabelid : ''} defaultMessage={label} />}
           label={label}
           value={date}
           placeholder={defaultValue ? defaultValue : "MM/DD/YYYY"}
           onChange={(date) => handleChange(date)}
           minDate={new Date()}
+          disabled={disabled}
           format="MM/dd/yyyy"
         />
       </MuiPickersUtilsProvider>

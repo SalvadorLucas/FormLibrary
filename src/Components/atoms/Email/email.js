@@ -23,7 +23,7 @@ const EmailAtom = React.forwardRef((props, ref) => {
   // Properties of the atom
   const { item, onChange, ...rest } = props
   const { name, label, defaultValue, isRequired, disabled,
-    languageLabelId } = item
+    languagelabelid } = item
   const [value, setValue] = React.useState(defaultValue)
   const [error, setError] = React.useState(false)
   const [errorText, setErrorText] = React.useState(null)
@@ -64,7 +64,7 @@ const EmailAtom = React.forwardRef((props, ref) => {
         required={isRequired}
         id={name}
         label={label}
-        // label={<FormattedMessage id={languageLabelId?languageLabelId:''} defaultMessage={label}/>}
+        // label={<FormattedMessage id={languagelabelid?languagelabelid:''} defaultMessage={label}/>}
         disabled={disabled}
         helperText={errorText}
       />

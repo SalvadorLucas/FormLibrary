@@ -31,23 +31,18 @@ const DropDownAtom = React.forwardRef((props, ref) => {
   // Properties of the atom
   const { item, onChange, ...rest } = props
   const { name, uri, entity, itemOptions, label, isRequired,
-    disabled, defaultValue, itemLabel, customEventName, handleChange, languageLabelId } = item
+    disabled, itemLabel, customEventName, handleChange, languagelabelid } = item
   const classes = useStyles()
 
   const [itemOption, setItemOption] = React.useState('')
   const [options, setOptions] = React.useState(itemOptions)
-  React.useEffect(() => {
-    if (defaultValue) {
-      onChange(name, defaultValue)
-    }
-  }, [])
 
   if (uri) {
     React.useEffect(() => {
       Query(uri, entity, itemLabel).then(response => {
         setOptions(response)
-      }).catch(error=>{
-        console.error(error)        
+      }).catch(error => {
+        console.error(error)
       })
     }, [])
   }
@@ -79,24 +74,23 @@ const DropDownAtom = React.forwardRef((props, ref) => {
     <FormControl
       data-testid={'DropDownTestId'}
       className={classes.formControl}
+      disabled={disabled}
+      required={isRequired}
       ref={ref}
       {...rest}
     >
-      <InputLabel id="demo-simple-select-helper-label">
+      <InputLabel id={name}>
         {label}
-        {/* <FormattedMessage id={languageLabelId?languageLabelId:''} defaultMessage={label}/> */}
+        {/* <FormattedMessage id={languagelabelid?languagelabelid:''} defaultMessage={label}/> */}
       </InputLabel>
       <Select
         autoWidth
-        required={isRequired}
-        disabled={disabled}
-        labelId="simple-select-helper-label"
+        labelId={name}
         id={name}
         value={itemOption}
         onChange={handleOnChange}
-        defaultValue={defaultValue}
       >
-        <MenuItem value="">
+        <MenuItem value=''>
           <em>None</em>
         </MenuItem>
         {options ?

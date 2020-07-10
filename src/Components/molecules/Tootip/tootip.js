@@ -11,6 +11,7 @@ import Button from '../../atoms/Button'
 import Number from '../../atoms/Number'
 import Email from '../../atoms/Email'
 import Date from '../../atoms/Date'
+import UploadFile from '../../atoms/UploadFile'
 //MAIN FUNCTION
 /*
  @param props: component properties
@@ -40,6 +41,9 @@ const TootipMolecule = React.forwardRef((props, ref) => {
         break
       case 'date':
         setAtom(<Date item={item} onChange={onChange} />)
+        break
+      case 'uploadfile':
+        setAtom(<UploadFile item={item} onChange={onChange} />)
         break
     }
   }, [])

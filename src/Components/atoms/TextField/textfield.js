@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 const TextFieldAtom = React.forwardRef((props, ref) => {
   // Properties of the atom
   const { item, onChange, ...rest } = props
-  const { name, label, isRequired, disabled, type, defaultValue, controlledByEvent, handleDispatchEvent, languageLabelId } = item
+  const { name, label, isRequired, disabled, type, defaultValue, controlledByEvent, handleDispatchEvent, languagelabelid } = item
   const [value, setValue] = React.useState(defaultValue)
   const classes = useStyles()
   React.useEffect(() => {
@@ -69,7 +69,7 @@ const TextFieldAtom = React.forwardRef((props, ref) => {
               required={isRequired}
               value={value}
               id={name}
-              // label={<FormattedMessage id={languageLabelId?languageLabelId:''} defaultMessage={label}/>}
+              // label={<FormattedMessage id={languagelabelid?languagelabelid:''} defaultMessage={label}/>}
               label={label}
               disabled={disabled}
               type={type}
@@ -83,7 +83,7 @@ const TextFieldAtom = React.forwardRef((props, ref) => {
               onChange={handleChange}
               required={isRequired}
               id={name}
-              // label={<FormattedMessage id={languageLabelId?languageLabelId:''} defaultMessage={label}/>}
+              // label={<FormattedMessage id={languagelabelid?languagelabelid:''} defaultMessage={label}/>}
               label={label}
               disabled={disabled}
             />}

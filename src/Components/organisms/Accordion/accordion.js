@@ -1,14 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 // CORE COMPONENTS AND MOLECULES TO USE
-import { makeStyles } from '@material-ui/core/styles'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel'
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import {
+  Grid,
+  makeStyles,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Card,
+  CardActions,
+  CardContent,
+  Typography
+} from '@material-ui/core/'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import Typography from '@material-ui/core/Typography'
 import GridForm from '../../molecules/Grid'
-import { set } from 'date-fns'
 //MAIN FUNCTION
 /*
  @param props: component properties
@@ -27,9 +32,20 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
   },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 12,
+  },
 }))
 const AccordionOrganism = React.forwardRef((props, ref) => {
-  const { name, title, description, groups, onChange, ...rest } = props
+  const { name, title, description, groups, onChange, direction, justify, alignItems, children, ...rest } = props
   const [expanded, setExpanded] = React.useState(null)
   const classes = useStyles()
   const handleChange = panel => {
@@ -44,25 +60,49 @@ const AccordionOrganism = React.forwardRef((props, ref) => {
     /* 
      @prop data-testid: Id to use inside accordion.test.js file.
      */
-    <div
+    <Card
       className={classes.root}
       data-testid={'AccordionTestId'}
       ref={ref}
     >
-      {groups.map((group, key) => {
-        return (
-          <ExpansionPanel expanded={expanded === `panel${key}`} onChange={() => handleChange(`panel${key}`)} key={key}>
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography className={classes.heading}>{title}</Typography>
-              <Typography className={classes.secondaryHeading}>{description}</Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <GridForm {...group} onChange={onChange} />
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-        )
-      })}
-    </div>
+      <CardContent>
+        <Typography variant="h5" component="h2">
+          {title}
+        </Typography>
+        <Typography variant="body2" component="p">
+          {description}
+        </Typography>
+        <Grid
+          container
+          direction={direction}
+          justify={justify}
+          alignItems={alignItems}
+          alignContent='space-around' //'stretch' 'center' 'flex-start' 'flex-end' 'space-between' 'space-around'
+          data-testid={'GridTestId'}
+          spacing={1}
+          {...rest}
+        >
+          {groups.map((group, key) => {
+            return (
+              <Grid item key={key} xs={12} sm={12} md={12} lg={12} xl={12}>
+                <Accordion expanded={expanded === `panel${key}`} onChange={() => handleChange(`panel${key}`)} key={key}>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography className={classes.heading}>{group.label}</Typography>
+                    <Typography className={classes.secondaryHeading}>{group.description}</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <GridForm {...group} onChange={onChange} />
+                  </AccordionDetails>
+                </Accordion>
+              </Grid>
+            )
+          })}
+        </Grid>
+      </CardContent>
+      <CardActions>
+        {children}
+      </CardActions>
+    </Card>
   )
 })
 // Type and required properties
@@ -71,13 +111,19 @@ AccordionOrganism.propTypes = {
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string,
   title: PropTypes.string,
-  description: PropTypes.string
+  description: PropTypes.string,
+  direction: PropTypes.string,
+  justify: PropTypes.string,
+  alignItems: PropTypes.string
 }
 // Default properties
 AccordionOrganism.defaultProps = {
   name: null,
   title: null,
-  description: null
+  description: null,
+  direction: 'row',
+  justify: 'flex-start',
+  alignItems: 'flex-start'
 }
 
 export default AccordionOrganism
