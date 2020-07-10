@@ -7,9 +7,6 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Card,
-  CardActions,
-  CardContent,
   Typography
 } from '@material-ui/core/'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
@@ -20,9 +17,6 @@ import GridForm from '../../molecules/Grid'
  @param ref: reference made by React.forward
 */
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-  },
   heading: {
     fontSize: theme.typography.pxToRem(15),
     flexBasis: '33.33%',
@@ -31,17 +25,6 @@ const useStyles = makeStyles((theme) => ({
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
   },
 }))
 const AccordionOrganism = React.forwardRef((props, ref) => {

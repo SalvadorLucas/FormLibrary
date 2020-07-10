@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import {
   Grid,
   makeStyles,
-  AccordionDetails,
-  AccordionSummary,
   Card,
   CardActions,
   CardContent,
@@ -14,29 +12,9 @@ import {
 import Accordion from './Components/organisms/Accordion'
 import GridForm from './Components/molecules/Grid'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     width: '100%',
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    flexBasis: '33.33%',
-    flexShrink: 0,
-  },
-  secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary,
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
   },
 }))
 function Form(props) {
