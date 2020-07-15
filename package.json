@@ -1,6 +1,6 @@
 {
   "name": "ebs-form",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "ebs-form React component",
   "main": "lib/index.js",
   "files": [
