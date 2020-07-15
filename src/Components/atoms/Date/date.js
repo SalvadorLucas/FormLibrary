@@ -26,12 +26,31 @@ const DateAtom = React.forwardRef((props, ref) => {
   const { item, onChange, ...rest } = props
   const { name, label, defaultValue, disabled, languagelabelid } = item
   const [date, setDate] = React.useState(new Date())
-  React.useEffect(()=>{
-    onChange(name, date)
-  },[])
+  React.useEffect(() => {
+    let dateValue = formatDate(date)
+    onChange(name, dateValue)
+  }, [])
   const handleChange = (date) => {
     setDate(date)
-    onChange(name, date)
+    let dateValue = formatDate(date)
+    onChange(name, dateValue)
+  }
+  const formatDate = (date) => {
+    let dateFormatted = null
+    let month = null
+    let day = null
+    if (date.getMonth() + 1 < 10) {
+      month = `0${date.getMonth() + 1}`
+    } else {
+      month = `${date.getMonth() + 1}`
+    }
+    if (date.getDate() < 10) {
+      day = `0${date.getDate()}`
+    } else {
+      day = `${date.getDate()}`
+    }
+    dateFormatted = `${date.getFullYear()}-${month}-${day}`
+    return dateFormatted
   }
   return (
     /* 
