@@ -13,11 +13,6 @@ const SimpleForm = React.forwardRef((props, ref) => {
     }
     async function handleDispatchEvent(event) {
         return new Promise((resolve, reject) => {
-            // Query('http://localhost:28080/graphql', 'Crop', event.detail.value).then(res => {
-            //     resolve(res)
-            // }).catch(error=>{
-            //     reject(error)
-            // })
             let newValues = idsValues
             newValues[event.detail.value.fieldName] = event.detail.value.value
             setIdsValues(newValues)
@@ -96,16 +91,21 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 sm: 4,
                 md: 4,
                 lg: 4,
-                uri: 'http://localhost:28080/graphql', //optional
-                entity: 'Country', //optional
+                uri: 'http://localhost:18080/graphql', //optional
+                entity: 'Crop', //optional
                 // itemOptions: [
                 //     { id: 1, name: 'Uno'},
                 //     { id: 2, name: 'Dos'},
                 //     { id: 3, name: 'Tres'}
                 // ],
-                itemLabel: 'name', // need by api
+                itemLabel: 'description', // need by api
                 // disabled: true,
                 // isRequired: true,
+                cascadeSettings: {
+                    controlledByEvent: 'cascadeEvent',
+                    cascadeFilterByColumn: 'description',
+                    enableOnRefresh: true, // default false
+                },
                 customEventName: 'myEvent',
                 // handleChange: handleChange,
             },
@@ -116,7 +116,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 sm: 4,
                 md: 4,
                 lg: 4,
-                uri: 'http://localhost:28080/graphql', //optional
+                uri: 'http://localhost:18080/graphql', //optional
                 entity: 'Crop', //optional
                 itemLabel: 'description',
                 customEventName: 'myEvent',
@@ -128,9 +128,10 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 sm: 4,
                 md: 4,
                 lg: 4,
-                uri: 'http://localhost:28080/graphql', //optional
+                uri: 'http://localhost:18080/graphql', //optional
                 entity: 'Purpose', //optional
                 itemLabel: 'name',
+                customEventName: 'cascadeEvent',
                 // helper: 'Help'
             },
             {
@@ -219,7 +220,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 sm: 4,
                 md: 4,
                 lg: 4,
-                uri: 'http://localhost:28080/graphql', //optional
+                uri: 'http://localhost:18080/graphql', //optional
                 entity: 'Service', //optional
                 itemLabel: 'name',
                 // helper: 'Help',
@@ -231,7 +232,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 sm: 4,
                 md: 4,
                 lg: 4,
-                uri: 'http://localhost:28080/graphql', //optional
+                uri: 'http://localhost:18080/graphql', //optional
                 entity: 'ServiceProvider', //optional
                 itemLabel: 'name',
                 // helper: 'Help'
@@ -243,7 +244,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 sm: 4,
                 md: 4,
                 lg: 4,
-                uri: 'http://localhost:28080/graphql', //optional
+                uri: 'http://localhost:18080/graphql', //optional
                 entity: 'Purpose', //optional
                 itemLabel: 'name',
                 // helper: 'Help'
@@ -255,7 +256,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 sm: 4,
                 md: 4,
                 lg: 4,
-                uri: 'http://localhost:28080/graphql', //optional
+                uri: 'http://localhost:18080/graphql', //optional
                 entity: 'Crop', //optional
                 itemLabel: 'description',
                 // helper: 'Help'
@@ -351,7 +352,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
                         sm: 4,
                         md: 4,
                         lg: 4,
-                        uri: 'http://localhost:28080/graphql', //optional
+                        uri: 'http://localhost:18080/graphql', //optional
                         entity: 'Country', //optional
                         // itemOptions: [
                         //     { id: 1, name: 'Uno'},
@@ -378,7 +379,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
                         sm: 4,
                         md: 4,
                         lg: 4,
-                        uri: 'http://localhost:28080/graphql', //optional
+                        uri: 'http://localhost:18080/graphql', //optional
                         entity: 'Crop', //optional
                         itemLabel: 'description',
                         customEventName: 'myEvent',
@@ -390,7 +391,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
                         sm: 4,
                         md: 4,
                         lg: 4,
-                        uri: 'http://localhost:28080/graphql', //optional
+                        uri: 'http://localhost:18080/graphql', //optional
                         entity: 'Purpose', //optional
                         itemLabel: 'name',
                         // helper: 'Help'
@@ -488,7 +489,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
                         sm: 4,
                         md: 4,
                         lg: 4,
-                        uri: 'http://localhost:28080/graphql', //optional
+                        uri: 'http://localhost:18080/graphql', //optional
                         entity: 'Service', //optional
                         itemLabel: 'name',
                         // helper: 'Help',
@@ -500,7 +501,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
                         sm: 4,
                         md: 4,
                         lg: 4,
-                        uri: 'http://localhost:28080/graphql', //optional
+                        uri: 'http://localhost:18080/graphql', //optional
                         entity: 'ServiceProvider', //optional
                         itemLabel: 'name',
                         // helper: 'Help'
@@ -512,7 +513,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
                         sm: 4,
                         md: 4,
                         lg: 4,
-                        uri: 'http://localhost:28080/graphql', //optional
+                        uri: 'http://localhost:18080/graphql', //optional
                         entity: 'Purpose', //optional
                         itemLabel: 'name',
                         // helper: 'Help'
@@ -524,7 +525,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
                         sm: 4,
                         md: 4,
                         lg: 4,
-                        uri: 'http://localhost:28080/graphql', //optional
+                        uri: 'http://localhost:18080/graphql', //optional
                         entity: 'Crop', //optional
                         itemLabel: 'description',
                         // helper: 'Help'
@@ -560,9 +561,9 @@ const SimpleForm = React.forwardRef((props, ref) => {
             <Form definition={normalDefinition} onSubmit={(values) => {
                 console.log(values)
             }} />
-            <Form definition={accordionDefinition} onSubmit={(values) => {
+            {/* <Form definition={accordionDefinition} onSubmit={(values) => {
                 console.log(values)
-            }} />
+            }} /> */}
         </div>
     )
 })

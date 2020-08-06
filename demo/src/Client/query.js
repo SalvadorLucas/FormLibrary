@@ -16,7 +16,7 @@ const authLink = setContext(({ headers }) => {
     }
 });
 
-const Query = (uri, entity, id) => {
+const Query = (uri, entity, query) => {
     return new Promise((resolve, reject) => {
         const httpLink = createHttpLink({
             uri: uri,
@@ -26,17 +26,11 @@ const Query = (uri, entity, id) => {
             cache: new InMemoryCache(),
             credentials: 'include'
         });
-        const query = gql`
-        query{
-            find${entity}(id:${id}){
-                description
-            }
-        }
-        `;
+        const QUERY = gql(query)
         client.query({
-            query
+            query: QUERY
         }).then(response=>{
-            resolve(response.data[`find${entity}`].description)
+            resolve(response.data[`find${entity}`])
         }).catch(error=>{
             reject(error)
         })

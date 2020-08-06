@@ -16,7 +16,7 @@ const authLink = setContext(({ headers }) => {
     }
 });
 
-const Query = (uri, entity, itemLabel) => {
+const Query = (uri, entity, itemLabel, itemValue, filter) => {
     return new Promise((resolve, reject) => {
         const httpLink = createHttpLink({
             uri: uri,
@@ -28,9 +28,14 @@ const Query = (uri, entity, itemLabel) => {
         });
         const query = gql`
         query{
-            find${entity}List(page:{number:1 size:100}){
+            find${entity}List(
+                page:{number:1 size:100}
+                ${filter ? 
+                    `filters:{mod: EQ col:"${filter.column}" val:"${filter.value}"}`
+                    : ''}
+                ){
                 content{
-                    id
+                    ${itemValue},
                     ${itemLabel}
                 }
             }
@@ -38,9 +43,9 @@ const Query = (uri, entity, itemLabel) => {
         `;
         client.query({
             query
-        }).then(response=>{
+        }).then(response => {
             resolve(response.data[`find${entity}List`].content)
-        }).catch(error=>{
+        }).catch(error => {
             reject(error)
         })
     })

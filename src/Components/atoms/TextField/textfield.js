@@ -29,6 +29,7 @@ const TextFieldAtom = React.forwardRef((props, ref) => {
       onChange(name, defaultValue)
     }
   }, [])
+  // Listen dispatch event
   if (controlledByEvent) {
     document.addEventListener(controlledByEvent, function (event) {
       let eventDetail = {
@@ -42,6 +43,7 @@ const TextFieldAtom = React.forwardRef((props, ref) => {
       })
     }, false)
   }
+// Update form values and set new value to show
   const handleChange = (event) => {
     onChange(name, event.target.value)
     setValue(event.target.value)
