@@ -21,12 +21,13 @@ const useStyles = makeStyles((theme) => ({
 const TextFieldAtom = React.forwardRef((props, ref) => {
   // Properties of the atom
   const { item, onChange, ...rest } = props
-  const { name, label, isRequired, disabled, type, defaultValue, controlledByEvent, handleDispatchEvent, languagelabelid } = item
+  const { name, label, isRequired, disabled, type, defaultValue, controlledByEvent,
+    handleDispatchEvent, languagelabelid, cf } = item
   const [value, setValue] = React.useState(defaultValue)
   const classes = useStyles()
   React.useEffect(() => {
     if (defaultValue) {
-      onChange(name, defaultValue)
+      onChange(name, defaultValue, cf)
     }
   }, [])
   // Listen dispatch event
@@ -45,7 +46,7 @@ const TextFieldAtom = React.forwardRef((props, ref) => {
   }
 // Update form values and set new value to show
   const handleChange = (event) => {
-    onChange(name, event.target.value)
+    onChange(name, event.target.value, cf)
     setValue(event.target.value)
   }
 

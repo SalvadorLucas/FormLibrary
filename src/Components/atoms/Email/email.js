@@ -23,20 +23,20 @@ const EmailAtom = React.forwardRef((props, ref) => {
   // Properties of the atom
   const { item, onChange, ...rest } = props
   const { name, label, defaultValue, isRequired, disabled,
-    languagelabelid } = item
+    languagelabelid, cf } = item
   const [value, setValue] = React.useState(defaultValue)
   const [error, setError] = React.useState(false)
   const [errorText, setErrorText] = React.useState(null)
   const emailExpresion = new RegExp("^[^@]+@[^@]+\.[a-zA-Z]{2,}$")
   React.useEffect(() => {
     if (defaultValue) {
-      onChange(name, defaultValue)
+      onChange(name, defaultValue, cf)
     }
   }, [])
   const handleChange = (event) => {
     setValue(event.target.value)
     if (emailExpresion.test(event.target.value)) {
-      onChange(name, event.target.value)
+      onChange(name, event.target.value, cf)
       setError(false)
       setErrorText(null)
     } else {

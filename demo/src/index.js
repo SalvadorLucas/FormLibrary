@@ -6,8 +6,8 @@ import App from './App'
 class Demo extends Component {
   render() {
     return <div>
-      {/* <Form /> */}
-      <App/>
+      <Form />
+      {/* <App/> */}
     </div>
   }
 }

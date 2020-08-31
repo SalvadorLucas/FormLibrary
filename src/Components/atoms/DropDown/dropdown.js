@@ -39,7 +39,7 @@ const DropDownAtom = React.forwardRef((props, ref) => {
   // Properties of the atom
   const { item, onChange, ...rest } = props
   const { name, uri, entity, itemOptions, label, isRequired, controlledByEvent, handleDispatchEvent,
-    disabled, itemValue, itemLabel, customEventName, handleChange, cascadeSettings, languagelabelid } = item
+    disabled, itemValue, itemLabel, customEventName, handleChange, cascadeSettings, languagelabelid, cf } = item
   const classes = useStyles()
 
   const [itemOption, setItemOption] = React.useState('')
@@ -79,7 +79,7 @@ const DropDownAtom = React.forwardRef((props, ref) => {
 
   const handleOnChange = (event) => {
     setItemOption(event.target.value)
-    onChange(name, event.target.value)
+    onChange(name, event.target.value, cf)
     // Function by developers
     if (handleChange) {
       handleChange(event)

@@ -24,16 +24,16 @@ const DateAtom = React.forwardRef((props, ref) => {
   const classes = useStyles()
   // Properties of the atom
   const { item, onChange, ...rest } = props
-  const { name, label, defaultValue, disabled, languagelabelid } = item
+  const { name, label, defaultValue, disabled, languagelabelid, cf } = item
   const [date, setDate] = React.useState(new Date())
   React.useEffect(() => {
     let dateValue = formatDate(date)
-    onChange(name, dateValue)
+    onChange(name, dateValue, cf)
   }, [])
   const handleChange = (date) => {
     setDate(date)
     let dateValue = formatDate(date)
-    onChange(name, dateValue)
+    onChange(name, dateValue, cf)
   }
   const formatDate = (date) => {
     let dateFormatted = null

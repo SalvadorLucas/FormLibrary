@@ -74,16 +74,16 @@ NumberFormatCustom.propTypes = {
 const NumberAtom = React.forwardRef((props, ref) => {
   // Properties of the atom
   const { item, onChange, ...rest } = props
-  const { name, label, defaultValue, type, languagelabelid, helper, disabled } = item
+  const { name, label, defaultValue, cf, type, languagelabelid, helper, disabled } = item
   const [value, setValue] = React.useState(defaultValue)
   const classes = useStyles()
   React.useEffect(() => {
     if (defaultValue) {
-      onChange(name, defaultValue)
+      onChange(name, defaultValue, cf)
     }
   }, [])
   const handleChange = (event) => {
-    onChange(name, event.target.value)
+    onChange(name, event.target.value, cf)
     setValue(event.target.value)
   }
 

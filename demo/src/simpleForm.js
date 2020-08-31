@@ -42,12 +42,16 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 name: 'entityListCode', // (optional but suggested)
                 label: 'Entity List Code', // required
                 type: 'text', // text || multiline (types for component:'textField')
-                disabled: true,
+                uri: 'http://localhost:18080/graphql', //optional
+                entity: 'Crop', //optional
+                itemValue: 'id',
+                // disabled: true,
                 // isRequired: true,
                 // defaultValue:'Hello',
                 // helper: 'Help',
-                controlledByEvent: 'myEvent',
-                handleDispatchEvent: handleDispatchEvent,
+                // controlledByEvent: 'myEvent',
+                // handleDispatchEvent: handleDispatchEvent,
+                cf: true,
                 // languagelabelid: 'language.label.id'
             },
             {
@@ -63,7 +67,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
             },
             {
                 component: 'number',
-                isRequired: false,
+                // isRequired: false,
                 type: 'number', //number, tel,
                 name: 'totalEntities',
                 label: 'Total Entities',
@@ -73,6 +77,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 md: 3,
                 lg: 3,
                 // languagelabelid: 'language.label.id'
+                cf: true,
                 // helper: 'Help'
             },
             {
@@ -98,16 +103,18 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 //     { id: 2, name: 'Dos'},
                 //     { id: 3, name: 'Tres'}
                 // ],
+                itemValue: 'id',
                 itemLabel: 'description', // need by api
                 // disabled: true,
                 // isRequired: true,
-                cascadeSettings: {
-                    controlledByEvent: 'cascadeEvent',
-                    cascadeFilterByColumn: 'description',
-                    enableOnRefresh: true, // default false
-                },
-                customEventName: 'myEvent',
+                // cascadeSettings: {
+                //     controlledByEvent: 'cascadeEvent',
+                //     cascadeFilterByColumn: 'description',
+                //     enableOnRefresh: true, // default false
+                // },
+                // customEventName: 'myEvent',
                 // handleChange: handleChange,
+                cf: true,
             },
             {
                 component: 'dropDown',
@@ -119,7 +126,8 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 uri: 'http://localhost:18080/graphql', //optional
                 entity: 'Crop', //optional
                 itemLabel: 'description',
-                customEventName: 'myEvent',
+                itemValue: 'id'
+                // customEventName: 'myEvent',
             },
             {
                 component: 'dropDown',
@@ -131,7 +139,8 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 uri: 'http://localhost:18080/graphql', //optional
                 entity: 'Purpose', //optional
                 itemLabel: 'name',
-                customEventName: 'cascadeEvent',
+                itemValue: 'id'
+                // customEventName: 'cascadeEvent',
                 // helper: 'Help'
             },
             {
@@ -155,7 +164,8 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 // defaultValue: 'example@mail.com', // (optional)
                 // isRequired: false, // (optional)
                 // disabled: true, // (optional)
-                languagelabelid: 'language.label.id', // (optional but suggested)
+                // languagelabelid: 'language.label.id', // (optional but suggested)
+                cf: true,
                 // helper: 'Help', // (optional but suggested)
             },
             {
@@ -200,6 +210,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 label: 'Submition Date',
                 // disabled: true, // optional
                 languagelabelid: 'language.label.id', // (optional but suggested)
+                cf: true,
                 // helper: 'Help', // (optional)
             },
             {
@@ -223,6 +234,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 uri: 'http://localhost:18080/graphql', //optional
                 entity: 'Service', //optional
                 itemLabel: 'name',
+                itemValue: 'id'
                 // helper: 'Help',
             },
             {
@@ -235,6 +247,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 uri: 'http://localhost:18080/graphql', //optional
                 entity: 'ServiceProvider', //optional
                 itemLabel: 'name',
+                itemValue: 'id'
                 // helper: 'Help'
             },
             {
@@ -247,6 +260,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 uri: 'http://localhost:18080/graphql', //optional
                 entity: 'Purpose', //optional
                 itemLabel: 'name',
+                itemValue: 'id'
                 // helper: 'Help'
             },
             {
@@ -257,8 +271,9 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 md: 4,
                 lg: 4,
                 uri: 'http://localhost:18080/graphql', //optional
-                entity: 'Crop', //optional
+                entity: 'Program', //optional
                 itemLabel: 'description',
+                itemValue: 'id'
                 // helper: 'Help'
             },
             {
@@ -280,6 +295,7 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 md: 2,
                 lg: 2,
                 // disabled: true,
+                cf: true,
                 // helper: 'Help'
             }
         ]

@@ -13,7 +13,7 @@ import { DropzoneDialog } from 'material-ui-dropzone'
 const UploadFileAtom = React.forwardRef((props, ref) => {
   // Properties of the atom
   const { item, onChange, ...rest } = props
-  const { disabled, name, label, languagelabelid } = item
+  const { disabled, name, label, languagelabelid, cf } = item
   const [open, setOpen] = React.useState(false)
 
   return (
@@ -39,7 +39,7 @@ const UploadFileAtom = React.forwardRef((props, ref) => {
         open={open}
         onClose={() => setOpen(false)}
         onSave={(files) => {
-          onChange(name, files)
+          onChange(name, files, cf)
           setOpen(false)
         }}
         showPreviews={true}

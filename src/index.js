@@ -24,23 +24,32 @@ function Form(props) {
 
   if (formValues === null) {
     if (definition.groups) {
-      let keys = {}
+      let keys = {
+        cf: {},
+        target: {}
+      }
       definition.groups.map(group => {
         group.items.map(item => {
-          keys[item.name] = ''
+          item.cf ? keys.cf[item.name] = ''
+          : keys.target[item.name] = ''
         })
       })
       setFormValues(keys)
     } else {
-      let keys = {}
+      let keys = {
+        cf: {},
+        target: {}
+      }
       definition.items.map(item => {
-        keys[item.name] = ''
+        item.cf ? keys.cf[item.name] = ''
+          : keys.target[item.name] = ''
       })
       setFormValues(keys)
     }
   }
-  const onChange = (name, value) => {
-    formValues[name] = value
+  const onChange = (name, value, cf) => {
+    cf ? formValues.cf[name] = value
+    : formValues.target[name] = value
     setFormValues(formValues)
   }
   const sendValues = (event) => {
