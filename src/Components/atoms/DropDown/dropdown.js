@@ -93,7 +93,7 @@ const DropDownAtom = React.forwardRef((props, ref) => {
         detail: {
           value: value
         },
-        bubbles: true
+        bubbles: false
       })
       document.dispatchEvent(customEvent)
     }

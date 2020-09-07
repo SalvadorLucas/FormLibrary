@@ -206,12 +206,28 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 md: 4,
                 lg: 4,
                 component: 'date',
+                name: 'firstDate',
+                label: 'First Date',
+                // disabled: true, // optional
+                languagelabelid: 'language.label.id', // (optional but suggested)
+                cf: true,
+                // helper: 'Help', // (optional)
+                // minDate: Date('2020-01-01'), // (optional) format: YYYY-MM-DD
+                // maxDate: Date('2020-01-01'), // (optional)
+                // minDateAccordingTo: 'firstDate', (Optional)
+            },
+            {
+                sm: 4,
+                md: 4,
+                lg: 4,
+                component: 'date',
                 name: 'submitionDate',
                 label: 'Submition Date',
                 // disabled: true, // optional
                 languagelabelid: 'language.label.id', // (optional but suggested)
                 cf: true,
                 // helper: 'Help', // (optional)
+                minDateAccordingTo: 'firstDate',
             },
             {
                 component: 'textfield',

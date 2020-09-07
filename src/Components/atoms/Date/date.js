@@ -24,16 +24,39 @@ const DateAtom = React.forwardRef((props, ref) => {
   const classes = useStyles()
   // Properties of the atom
   const { item, onChange, ...rest } = props
-  const { name, label, defaultValue, disabled, languagelabelid, cf } = item
-  const [date, setDate] = React.useState(new Date())
+  const { name, label, defaultValue, disabled, languagelabelid, cf, minDate, maxDate, minDateAccordingTo } = item
+  const [date, setDate] = React.useState(defaultValue ? defaultValue : new Date())
+  const [miniumDate, setMiniumDate] = React.useState(minDate)
   React.useEffect(() => {
     let dateValue = formatDate(date)
     onChange(name, dateValue, cf)
   }, [])
   const handleChange = (date) => {
+    // setDate (local)
     setDate(date)
+    // Make a custom event to dispatch dependent dates (used by minDateAccordingTo target)
+    let value = {}
+    value['fieldName'] = name
+    value['value'] = date
+    const customEvent = new CustomEvent(`${name}Dispatch`, {
+      detail: {
+        value: value
+      },
+      bubbles: false
+    })
+    document.dispatchEvent(customEvent)
+    // update form values
     let dateValue = formatDate(date)
     onChange(name, dateValue, cf)
+  }
+  // Listen dispatch event for minDateAccordingTo
+  if (minDateAccordingTo) {
+    document.addEventListener(`${minDateAccordingTo}Dispatch`, function (event) {
+      setMiniumDate(event.detail.value.value)
+      setDate(event.detail.value.value)
+      let dateValue = formatDate(event.detail.value.value)
+      onChange(name, dateValue, cf)
+    }, false)
   }
   const formatDate = (date) => {
     let dateFormatted = null
@@ -72,7 +95,8 @@ const DateAtom = React.forwardRef((props, ref) => {
           value={date}
           placeholder={defaultValue ? defaultValue : "MM/DD/YYYY"}
           onChange={(date) => handleChange(date)}
-          minDate={new Date()}
+          minDate={miniumDate}
+          maxDate={maxDate}
           disabled={disabled}
           format="MM/dd/yyyy"
         />
