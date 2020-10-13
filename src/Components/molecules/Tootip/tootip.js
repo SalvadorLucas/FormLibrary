@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
-import HelpIcon from '@material-ui/icons/Help';
+import Tooltip from '@material-ui/core/Tooltip'
+import IconButton from '@material-ui/core/IconButton'
+import HelpIcon from '@material-ui/icons/Help'
 // CORE COMPONENTS AND ATOMS TO USE
 import { Grid } from '@material-ui/core'
 import DropDown from '../../atoms/DropDown'

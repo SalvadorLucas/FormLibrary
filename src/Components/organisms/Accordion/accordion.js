@@ -37,7 +37,7 @@ const AccordionOrganism = React.forwardRef((props, ref) => {
     } else {
       setExpanded(panel)
     }
-  };
+  }
   // Properties of the organism
   return (
     /* 

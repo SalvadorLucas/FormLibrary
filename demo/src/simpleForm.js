@@ -42,9 +42,6 @@ const SimpleForm = React.forwardRef((props, ref) => {
                 name: 'entityListCode', // (optional but suggested)
                 label: 'Entity List Code', // required
                 type: 'text', // text || multiline (types for component:'textField')
-                uri: 'http://localhost:18080/graphql', //optional
-                entity: 'Crop', //optional
-                itemValue: 'id',
                 // disabled: true,
                 // isRequired: true,
                 // defaultValue:'Hello',
