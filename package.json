@@ -36,6 +36,7 @@
     "material-ui-dropzone": "^3.3.0",
     "moment": "^2.27.0",
     "node-json-transform": "^1.1.1",
+    "react-hook-form": "^6.9.6",
     "react-intl": "^5.0.2",
     "react-number-format": "^4.4.1"
   },

@@ -40,11 +40,11 @@ const GridMolecule = React.forwardRef((props, ref) => {
             <Grid
               item
               key={key}
-              xs={'auto'}
+              xs={item.xs? item.xs : "auto"}
               sm={item.sm ? item.sm : "auto"}
               md={item.md ? item.md : "auto"}
               lg={item.lg ? item.lg : "auto"}
-              xl={'auto'}
+              xl={item.xl ? item.xl : "auto"}
             >
               <Tooltip item={item} onChange={onChange} />
             </Grid>
@@ -56,11 +56,11 @@ const GridMolecule = React.forwardRef((props, ref) => {
                 <Grid
                   item
                   key={key}
-                  xs={'auto'}
+                  xs={item.xs ? item.xs : "auto"}
                   sm={item.sm ? item.sm : "auto"}
                   md={item.md ? item.md : "auto"}
                   lg={item.lg ? item.lg : "auto"}
-                  xl={'auto'}
+                  xl={item.xl ? item.xl : "auto"}
                 >
                   <TextField item={item} onChange={onChange} />
                 </Grid>
@@ -70,11 +70,11 @@ const GridMolecule = React.forwardRef((props, ref) => {
                 <Grid
                   item
                   key={key}
-                  xs={'auto'}
+                  xs={item.xs ? item.xs : "auto"}
                   sm={item.sm ? item.sm : "auto"}
                   md={item.md ? item.md : "auto"}
                   lg={item.lg ? item.lg : "auto"}
-                  xl={'auto'}
+                  xl={item.xl ? item.xl : "auto"}
                 >
                   <DropDown item={item} onChange={onChange} />
                 </Grid>
@@ -84,11 +84,11 @@ const GridMolecule = React.forwardRef((props, ref) => {
                 <Grid
                   item
                   key={key}
-                  xs={'auto'}
+                  xs={item.xs ? item.xs : "auto"}
                   sm={item.sm ? item.sm : "auto"}
                   md={item.md ? item.md : "auto"}
                   lg={item.lg ? item.lg : "auto"}
-                  xl={'auto'}
+                  xl={item.xl ? item.xl : "auto"}
                 >
                   <Button item={item} onChange={onChange} />
                 </Grid>
@@ -98,11 +98,11 @@ const GridMolecule = React.forwardRef((props, ref) => {
                 <Grid
                   item
                   key={key}
-                  xs={'auto'}
+                  xs={item.xs ? item.xs : "auto"}
                   sm={item.sm ? item.sm : "auto"}
                   md={item.md ? item.md : "auto"}
                   lg={item.lg ? item.lg : "auto"}
-                  xl={'auto'}
+                  xl={item.xl ? item.xl : "auto"}
                 >
                   <Number item={item} onChange={onChange} />
                 </Grid>
@@ -112,11 +112,11 @@ const GridMolecule = React.forwardRef((props, ref) => {
                 <Grid
                   item
                   key={key}
-                  xs={'auto'}
+                  xs={item.xs ? item.xs : "auto"}
                   sm={item.sm ? item.sm : "auto"}
                   md={item.md ? item.md : "auto"}
                   lg={item.lg ? item.lg : "auto"}
-                  xl={'auto'}
+                  xl={item.xl ? item.xl : "auto"}
                 >
                   <Email item={item} onChange={onChange} />
                 </Grid>
@@ -126,11 +126,11 @@ const GridMolecule = React.forwardRef((props, ref) => {
                 <Grid
                   item
                   key={key}
-                  xs={'auto'}
+                  xs={item.xs ? item.xs : "auto"}
                   sm={item.sm ? item.sm : "auto"}
                   md={item.md ? item.md : "auto"}
                   lg={item.lg ? item.lg : "auto"}
-                  xl={'auto'}
+                  xl={item.xl ? item.xl : "auto"}
                 >
                   <Date item={item} onChange={onChange} />
                 </Grid>
@@ -140,11 +140,11 @@ const GridMolecule = React.forwardRef((props, ref) => {
                 <Grid
                   item
                   key={key}
-                  xs={'auto'}
+                  xs={item.xs ? item.xs : "auto"}
                   sm={item.sm ? item.sm : "auto"}
                   md={item.md ? item.md : "auto"}
                   lg={item.lg ? item.lg : "auto"}
-                  xl={'auto'}
+                  xl={item.xl ? item.xl : "auto"}
                 >
                   <UploadFile item={item} onChange={onChange} />
                 </Grid>
