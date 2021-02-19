@@ -1,22 +1,23 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 // Component to be Test
-import Tootip from './tootip'
+import RadioGroup from './radiogroup'
 // Test Library
 import { render, cleanup } from '@testing-library/react'
 import '@testing-library/dom'
 import '@testing-library/jest-dom/extend-expect'
 
 afterEach(cleanup)
+
 test('Report name', () => {
   const div = document.createElement('div')
-  ReactDOM.render(<Tootip></Tootip>, div)
+  ReactDOM.render(<RadioGroup></RadioGroup>, div)
 })
+
 // Props to send component to be rendered
-const props = {
-  properyName: 'Value',
-}
+const props = {}
+
 test('Render correctly', () => {
-  const { getByTestId } = render(<Tootip {...props}></Tootip>)
-  expect(getByTestId('TootipTestId')).toBeInTheDocument()
+  const { getByTestId } = render(<RadioGroup {...props}></RadioGroup>)
+  expect(getByTestId('RadioGroupTestId')).toBeInTheDocument()
 })

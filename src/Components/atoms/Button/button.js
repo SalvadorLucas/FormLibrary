@@ -1,9 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react";
+import PropTypes from "prop-types";
 // CORE COMPONENTS
-import Button from '@material-ui/core/Button'
-// GLOBALIZATION
-// import { FormattedMessage } from 'react-intl'
+import { Controller } from "react-hook-form";
+import Button from "@material-ui/core/Button";
+import { Tooltip } from "@material-ui/core";
 //MAIN FUNCTION
 /*
  @param props: component properties
@@ -11,33 +11,61 @@ import Button from '@material-ui/core/Button'
 */
 const ButtonAtom = React.forwardRef((props, ref) => {
   // Properties of the atom
-  const { item, onChange, ...rest } = props
-  const { disabled, name, label, languagelabelid, onClick } = item
+  const {
+    getValues,
+    setValue,
+    control,
+    reset,
+    errors,
+    name,
+    label,
+    helper,
+    onClick,
+    buttonProps,
+    ...rest
+  } = props;
 
   return (
     /* 
      @prop data-testid: Id to use inside button.test.js file.
      */
-    <Button
-      fullWidth
-      data-testid={'ButtonTestId'}
-      disabled={disabled}
-      name={name}
-      onClick={onClick}
-      variant='outlined'
-      color='primary'
-      {...rest}
-      ref={ref}
-    >
-      {/* <FormattedMessage id={languagelabelid?languagelabelid:''} defaultMessage={label}/> */}
-      {label}
-    </Button>
-  )
-})
+    <div data-testid={"ButtonTestId"}>
+      <Controller
+        control={control}
+        name={name}
+        render={({ onChange, onBlur, value, ref }) =>
+          helper ? (
+            <Tooltip {...helper}>
+              <span>
+                <Button
+                  value={value}
+                  onClick={(e) => {
+                    props.onClick && props.onClick(e);
+                  }}
+                  {...buttonProps}
+                >
+                  {label}
+                </Button>
+              </span>
+            </Tooltip>
+          ) : (
+            <Button
+              value={value}
+              onClick={(e) => {
+                props.onClick && props.onClick(e);
+              }}
+              {...buttonProps}
+            >
+              {label}
+            </Button>
+          )
+        }
+        defaultValue={{}}
+      />
+    </div>
+  );
+});
 // Type and required properties
-ButtonAtom.propTypes = {
-  item: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired
-}
+ButtonAtom.propTypes = {};
 
-export default ButtonAtom
+export default ButtonAtom;

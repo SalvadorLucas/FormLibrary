@@ -1,59 +1,64 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import Accordion from "./Components/organisms/Accordion";
-import GridForm from "./Components/molecules/Grid";
+import Grid from "./Components/molecules/Grid";
 
-function Form(props) {
-  const [formValues, setFormValues] = React.useState(null);
+export default function App(props) {
+  // Properties
   const { definition, onSubmit, children, ...rest } = props;
+  // React Hook Form
+  const {
+    handleSubmit,
+    reset,
+    setValue,
+    getValues,
+    control,
+    register,
+    errors,
+  } = useForm();
+  // Extracting the definition JSON
+  const definitionObject = definition({ setValue, getValues, reset });
 
-  if (formValues === null) {
-    if (definition.groups) {
-      let keys = {
-        cf: {},
-        target: {},
-      };
-      definition.groups.map((group) => {
-        group.items.map((item) => {
-          item.cf ? (keys.cf[item.name] = "") : (keys.target[item.name] = "");
-        });
-      });
-      setFormValues(keys);
-    } else {
-      let keys = {
-        cf: {},
-        target: {},
-      };
-      definition.items.map((item) => {
-        item.cf ? (keys.cf[item.name] = "") : (keys.target[item.name] = "");
-      });
-      setFormValues(keys);
-    }
+  if (definitionObject.groups) {
+    // Accordion Form
+    return (
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Accordion
+          groups={definitionObject.groups}
+          reset={reset}
+          control={control}
+          errors={errors}
+          setValue={setValue}
+          getValues={getValues}
+          register={register}
+          accordionProps={definitionObject.accordionProps}
+        />
+        {children}
+      </form>
+    );
+  } else {
+    // Normal Form
+    return (
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Grid
+          components={definitionObject.components}
+          reset={reset}
+          setValue={setValue}
+          getValues={getValues}
+          control={control}
+          errors={errors}
+          register={register}
+        />
+        {children}
+      </form>
+    );
   }
-  const onChange = (name, value, cf) => {
-    cf ? (formValues.cf[name] = value) : (formValues.target[name] = value);
-    setFormValues(formValues);
-  };
-  const sendValues = (event) => {
-    event.preventDefault();
-    onSubmit(formValues);
-  };
-
-  return (
-    <form onSubmit={sendValues}>
-      {definition.goups && <Accordion {...definition} onChange={onChange} />}
-      {definition.items && <GridForm {...definition} onChange={onChange} />}
-      {children}
-    </form>
-  );
 }
 
-Form.propTypes = {
-  definition: PropTypes.object.isRequired,
+App.propTypes = {
+  definition: PropTypes.func,
   onSubmit: PropTypes.func,
   children: PropTypes.node,
 };
-
-Form.defaultProps = {};
-
-export default Form;
+App.defaultProps = {};

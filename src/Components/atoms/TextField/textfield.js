@@ -1,103 +1,67 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { makeStyles } from '@material-ui/core/styles'
-// CORE COMPONENTS
-import FormControl from '@material-ui/core/FormControl'
-import TextField from '@material-ui/core/TextField'
-// GLOBALIZATION
-import { FormattedMessage } from 'react-intl'
-//MAIN FUNCTION
-/*
- @param props: component properties
- @param ref: reference made by React.forward
-*/
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(0),
-    minWidth: `100%`,
-    maxWidth: `100%`
-  }
-}))
-const TextFieldAtom = React.forwardRef((props, ref) => {
-  // Properties of the atom
-  const { item, onChange, ...rest } = props
-  const { name, label, isRequired, disabled, type, defaultValue, controlledByEvent,
-    handleDispatchEvent, languagelabelid, cf } = item
-  const [value, setValue] = React.useState(defaultValue)
-  const classes = useStyles()
-  React.useEffect(() => {
-    if (defaultValue) {
-      onChange(name, defaultValue, cf)
-    }
-  }, [])
-  // Listen dispatch event
-  if (controlledByEvent) {
-    document.addEventListener(controlledByEvent, function (event) {
-      let eventDetail = {
-        target: {
-          value: null
-        }
-      }
-      handleDispatchEvent(event).then(response => {
-        eventDetail.target.value = response
-        handleChange(eventDetail)
-      })
-    }, false)
-  }
-// Update form values and set new value to show
-  const handleChange = (event) => {
-    onChange(name, event.target.value, cf)
-    setValue(event.target.value)
-  }
+import React from "react";
+import PropTypes from "prop-types";
+import { TextField, Tooltip } from "@material-ui/core";
+import { Controller } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
+
+export default function TextFieldAtom(props) {
+  const {
+    control,
+    reset,
+    errors,
+    name,
+    helper,
+    defaultValue,
+    inputProps,
+    rules,
+    ...rest
+  } = props;
 
   return (
-    /* 
-     @prop data-testid: Id to use inside textfield.test.js file.
-     */
-    <div>
-      <FormControl
-        variant="filled"
-        data-testid={'TextFieldTestId'}
-        className={classes.formControl}
-        ref={ref}
-        {...rest}
-      >
-        {
-          type === 'text' ?
+    <div data-testid="TextFieldTestId">
+      <Controller
+        control={control}
+        name={name}
+        render={({ onChange, value, ref }) =>
+          helper ? (
+            <Tooltip {...helper}>
+              <TextField
+                inputRef={ref}
+                onChange={onChange}
+                value={value}
+                InputLabelProps={{ shrink: true }}
+                {...inputProps}
+              />
+            </Tooltip>
+          ) : (
             <TextField
-              fullWidth={true}
-              InputLabelProps={{ shrink: true }}
-              defaultValue={value}
-              onChange={handleChange}
-              required={isRequired}
+              inputRef={ref}
+              onChange={onChange}
               value={value}
-              id={name}
-              // label={<FormattedMessage id={languagelabelid?languagelabelid:''} defaultMessage={label}/>}
-              label={label}
-              disabled={disabled}
-              type={type}
-            /> :
-            <TextField
-              fullWidth={true}
-              multiline={true}
               InputLabelProps={{ shrink: true }}
-              defaultValue={value}
-              value={value}
-              onChange={handleChange}
-              required={isRequired}
-              id={name}
-              // label={<FormattedMessage id={languagelabelid?languagelabelid:''} defaultMessage={label}/>}
-              label={label}
-              disabled={disabled}
-            />}
-      </FormControl>
+              {...inputProps}
+            />
+          )
+        }
+        defaultValue={defaultValue ? defaultValue : ""}
+        rules={{ ...rules }}
+      />
+      <ErrorMessage
+        errors={errors}
+        name={name}
+        render={({ message }) => <p>{message}</p>}
+      />
     </div>
-  )
-})
-// Type and required properties
-TextFieldAtom.propTypes = {
-  item: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired
+  );
 }
 
-export default TextFieldAtom
+TextFieldAtom.propTypes = {
+  control: PropTypes.object.isRequired,
+  reset: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired,
+  name: PropTypes.any,
+  defaultValue: PropTypes.any,
+  inputProps: PropTypes.object,
+  rules: PropTypes.object,
+};
+TextFieldAtom.defaultProps = {};
