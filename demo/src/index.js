@@ -150,9 +150,9 @@ const accordionDefinition = (props) => {
               },
             },
             helper: { title: "ayuda", placement: "right", arrow: true },
-            rules: {
-              required: <p>Is required</p>,
-            },
+            // rules: {
+            //   required: <p>Is required</p>,
+            // },
           },
         ],
       },
@@ -160,13 +160,7 @@ const accordionDefinition = (props) => {
   };
 };
 
-const onSubmit = (data) => {
-  console.log(data);
-};
-
 const Demo = (props) => {
-  const [users, setUsers] = React.useState([]);
-
   const normalDefinition = (props) => {
     const { getValues, setValue, reset } = props;
     return {
@@ -185,19 +179,25 @@ const Demo = (props) => {
           },
           helper: { title: "ayuda", placement: "right", arrow: true },
           defaultValue: "Hola mundo",
-          rules: { required: "It's required" },
+          rules: {
+            min: 18, 
+            max: 99,
+            patern: /^[A-Za-z]+$/i,
+            validate: (value) => {
+              return value == "Hello workd";
+            },
+            required: "It's required",
+          },
         },
         {
           sizes: [12, 6, 4, 3, 2],
           component: "CheckBox",
           name: "checkbox",
           title: "Check Box Group",
-          options: [{ label: "Hola" }, { label: "Adios" }],
+          options: [{ label: "Hola", defaultValue: true }, { label: "Adios" }],
           checkProps: { color: "secondary" },
           onChange: (e) => console.log(e.target.checked),
-          defaultValue: true,
           helper: { title: "ayuda", placement: "top-start", arrow: true },
-          rules: { required: "It's required" },
         },
         {
           sizes: [12, 6, 4, 3, 2],
@@ -220,7 +220,7 @@ const Demo = (props) => {
           component: "Radio",
           name: "radiogroup",
           label: "Radio Group",
-          row: false,
+          row: true,
           options: [
             { label: "Uno", value: 1, disabled: true },
             { label: "Dos", value: 2, color: "primary" },
@@ -233,17 +233,19 @@ const Demo = (props) => {
           sizes: [12, 6, 4, 3, 2],
           component: "Select",
           name: "select",
-          label: "Select",
-          options: users,
+          options: [
+            { label: "Uno", value: 1 },
+            { label: "Dos", value: 2 },
+          ],
           inputProps: {
             isDisabled: false,
             isMulti: true,
             placeholder: "hola",
           },
           onChange: (e) => console.log(e),
-          defaultValue: { label: "Uno", value: 1 },
+          // defaultValue: { label: "Uno", value: 1 },
           helper: { title: "ayuda", placement: "right", arrow: true },
-          rules: { required: "It's required" },
+          // rules: { required: "It's required" },
         },
         {
           sizes: [12, 6, 4, 3, 2],
@@ -261,9 +263,7 @@ const Demo = (props) => {
           component: "Button",
           name: "button",
           label: "Button",
-          onClick: (e) => {
-            crops();
-          },
+          // onClick: (e) => {},
           buttonProps: {
             color: "primary",
             variant: "outlined",
@@ -276,35 +276,28 @@ const Demo = (props) => {
           component: "File",
           name: "file",
           label: "Choose a file...",
-          onClick: (e) => {
-            e.preventDefault();
-          },
-          inputProps: {
-            color: "primary",
-            variant: "outlined",
-            size: "small",
+          customProps: {
+            button: {
+              color: "primary",
+              variant: "outlined",
+              size: "small",
+            },
+            input: {},
           },
           helper: { title: "ayuda", placement: "right", arrow: true },
-          rules: { required: "It's required" },
+          // rules: { required: "It's required" },
         },
       ],
     };
   };
 
-  async function crops() {
-    const { data, loading, error } = await Client.query({
-      query: USER_LIST,
-      variables: {},
-    });
-    let options = [];
-    data.findUserList.content.map((option) => {
-      options.push({ label: option.userName, value: option.id });
-    });
-    setUsers(options);
-  }
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
     <div>
-      <App definition={accordionDefinition} onSubmit={onSubmit}>
+      <App definition={normalDefinition} onSubmit={onSubmit}>
         <Button type="submit" variant="contained" color="primary">
           Submit
         </Button>
