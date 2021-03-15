@@ -3,10 +3,11 @@ import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 import Accordion from "./Components/organisms/Accordion";
 import Grid from "./Components/molecules/Grid";
+import Tabs from "./Components/organisms/Tabs";
 
 export default function App(props) {
   // Properties
-  const { definition, onSubmit, children, ...rest } = props;
+  const { definition, onSubmit, children, active, ...rest } = props;
   // React Hook Form
   const {
     handleSubmit,
@@ -33,6 +34,24 @@ export default function App(props) {
           getValues={getValues}
           register={register}
           accordionProps={definitionObject.accordionProps}
+        />
+        {children}
+      </form>
+    );
+  } else if(definitionObject.tabs){
+    // Tabs Form
+    return (
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Tabs
+          active={active}
+          tabs={definitionObject.tabs}
+          reset={reset}
+          setValue={setValue}
+          getValues={getValues}
+          control={control}
+          errors={errors}
+          register={register}
+          tabsProps={definitionObject.tabsProps}
         />
         {children}
       </form>

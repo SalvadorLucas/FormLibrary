@@ -5,6 +5,9 @@ import { Button } from "@material-ui/core";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { USER_LIST } from "./query";
 import { Add } from "@material-ui/icons";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from '@material-ui/core/Tab';
 
 const Client = new ApolloClient({
   cache: new InMemoryCache({
@@ -160,7 +163,268 @@ const accordionDefinition = (props) => {
   };
 };
 
+const tabsDefinition = (props) => {
+  const { getValues, setValue, reset } = props;
+
+  return {
+    name: "tabs",
+    tabs: [
+      {
+        index: 0,
+        components: [
+          {
+            sizes: [12, 6, 4, 3, 2],
+            component: "TextField",
+            name: "TextField",
+            inputProps: {
+              label: "textfield",
+              disabled: false,
+              rows: 5,
+              size: "medium",
+              variant: "outlined",
+            },
+            helper: { title: "ayuda", placement: "right", arrow: true },
+            defaultValue: "Hola mundo",
+            rules: { required: "It's required" },
+          },
+          {
+            sizes: [12, 6, 4, 3, 2],
+            component: "CheckBox",
+            name: "checkbox",
+            title: "Check Box Group",
+            options: [{ label: "Hola", defaultValue: false }, { label: "Adios", defaultValue: false }],
+            checkProps: { color: "secondary" },
+            onChange: (e) => console.log(e.target.checked),
+            helper: { title: "ayuda", placement: "top-start", arrow: true },
+          },
+          {
+            sizes: [12, 6, 4, 3, 2],
+            component: "DatePicker",
+            name: "datepicker",
+            inputProps: {
+              autoOk: true,
+              variant: "inline",
+              inputVariant: "outlined",
+              label: "DatePicker",
+              disabled: true,
+            },
+            onChange: (e) => console.log(e),
+            defaultValue: new Date(),
+            helper: { title: "ayuda", placement: "right", arrow: true },
+            rules: { required: "It's required" },
+          },
+          {
+            sizes: [12, 6, 4, 3, 2],
+            component: "Radio",
+            name: "radiogroup",
+            label: "Radio Group",
+            row: false,
+            options: [
+              { label: "Uno", value: 1, disabled: true },
+              { label: "Dos", value: 2, color: "primary" },
+            ],
+            defaultValue: { label: "Uno", value: 1 },
+            helper: { title: "ayuda", placement: "top-start", arrow: true },
+            rules: { required: "It's required" },
+          },
+          {
+            sizes: [12, 6, 4, 3, 2],
+            component: "Select",
+            name: "select",
+            label: "Select",
+            options: [
+              { label: "Uno", value: 1 },
+              { label: "Dos", value: 2 },
+            ],
+            inputProps: {
+              isDisabled: false,
+              isMulti: true,
+              placeholder: "hola",
+            },
+            onChange: (e) => console.log(e),
+            defaultValue: { label: "Uno", value: 1 },
+            helper: { title: "ayuda", placement: "right", arrow: true },
+            rules: { required: "It's required" },
+          },
+          {
+            sizes: [12, 6, 4, 3, 2],
+            component: "Switch",
+            name: "switch",
+            label: "Switch",
+            onChange: (e) => console.log(e.target.checked),
+            defaultValue: true,
+            inputProps: { disabled: false, color: "primary" },
+            helper: { title: "ayuda", placement: "right", arrow: true },
+            rules: {},
+          },
+          {
+            sizes: [12, 6, 4, 3, 2],
+            component: "Button",
+            name: "button",
+            label: "Button",
+            onClick: (e) => {
+              reset({});
+            },
+            buttonProps: {
+              color: "primary",
+              variant: "outlined",
+            },
+            helper: { title: "ayuda", placement: "right", arrow: true },
+          },
+          {
+            sizes: [12, 6, 4, 3, 2],
+            component: "File",
+            name: "file",
+            label: "Choose a file...",
+            onClick: (e) => {
+              e.preventDefault();
+            },
+            customProps: {
+              button: { color: "primary", variant: "contained" },
+              input: {
+                acceptedFiles: [".csv"],
+                cancelButtonText: "cancel",
+                submitButtonText: "submit",
+                maxFileSize: 5000000,
+                showPreviews: true,
+                showFileNamesInPreview: true,
+              },
+            },
+            helper: { title: "ayuda", placement: "right", arrow: true },
+          },
+        ],
+      },
+      {
+        index: 1,
+        components: [
+          {
+            sizes: [12, 6, 4, 3, 2],
+            component: "CheckBox",
+            name: "checkbox2",
+            title: "Check Box Group",
+            options: [{ label: "Hola" }, { label: "Adios" }],
+            checkProps: { color: "secondary" },
+            onChange: (e) => console.log(e.target.checked),
+            defaultValue: true,
+            helper: { title: "ayuda", placement: "top-start", arrow: true },
+          },
+          {
+            sizes: [12, 6, 4, 3, 2],
+            component: "DatePicker",
+            name: "datepicker2",
+            inputProps: {
+              autoOk: true,
+              variant: "inline",
+              inputVariant: "outlined",
+              label: "DatePicker",
+              disabled: true,
+            },
+            onChange: (e) => console.log(e),
+            defaultValue: new Date(),
+            helper: { title: "ayuda", placement: "right", arrow: true },
+            rules: { required: "It's required" },
+          },
+          {
+            sizes: [12, 6, 4, 3, 2],
+            component: "Radio",
+            name: "radiogroup2",
+            label: "Radio Group",
+            row: false,
+            options: [
+              { label: "Uno", value: 1, disabled: true },
+              { label: "Dos", value: 2, color: "primary" },
+            ],
+            defaultValue: { label: "Uno", value: 1 },
+            helper: { title: "ayuda", placement: "top-start", arrow: true },
+          },
+          {
+            sizes: [12, 6, 4, 3, 2],
+            component: "Select",
+            name: "select2",
+            label: "Select",
+            options: [
+              { label: "Uno", value: 1 },
+              { label: "Dos", value: 2 },
+            ],
+            inputProps: {
+              isDisabled: false,
+              isMulti: true,
+              placeholder: "hola",
+            },
+            onChange: (e) => console.log(e),
+            defaultValue: { label: "Uno", value: 1 },
+            helper: { title: "ayuda", placement: "right", arrow: true },
+            rules: { required: "It's required" },
+          },
+          {
+            sizes: [12, 6, 4, 3, 2],
+            component: "Switch",
+            name: "switch2",
+            label: "Switch",
+            onChange: (e) => console.log(e.target.checked),
+            defaultValue: true,
+            inputProps: { disabled: false, color: "primary" },
+            helper: { title: "ayuda", placement: "right", arrow: true },
+            rules: {},
+          },
+          {
+            sizes: [12, 6, 4, 3, 2],
+            component: "Button",
+            name: "button2",
+            label: "Button",
+            onClick: (e) => {
+              reset({});
+            },
+            buttonProps: {
+              color: "primary",
+              variant: "outlined",
+            },
+            helper: { title: "ayuda", placement: "right", arrow: true },
+          },
+          {
+            sizes: [12, 6, 4, 3, 2],
+            component: "File",
+            name: "file2",
+            label: "Choose a file...",
+            onClick: (e) => {
+              e.preventDefault();
+            },
+            customProps: {
+              button: { color: "primary", variant: "contained" },
+              input: {
+                acceptedFiles: [".csv"],
+                cancelButtonText: "cancel",
+                submitButtonText: "submit",
+                maxFileSize: 5000000,
+                showPreviews: true,
+                showFileNamesInPreview: true,
+              },
+            },
+            helper: { title: "ayuda", placement: "right", arrow: true },
+            // rules: {
+            //   required: <p>Is required</p>,
+            // },
+          },
+        ],
+      },
+    ],
+  };
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
 const Demo = (props) => {
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   const normalDefinition = (props) => {
     const { getValues, setValue, reset } = props;
     return {
@@ -180,12 +444,6 @@ const Demo = (props) => {
           helper: { title: "ayuda", placement: "right", arrow: true },
           defaultValue: "Hola mundo",
           rules: {
-            min: 18, 
-            max: 99,
-            patern: /^[A-Za-z]+$/i,
-            validate: (value) => {
-              return value == "Hello workd";
-            },
             required: "It's required",
           },
         },
@@ -208,7 +466,8 @@ const Demo = (props) => {
             variant: "inline",
             inputVariant: "outlined",
             label: "DatePicker",
-            disabled: true,
+            disabled: false,
+            format: "yyyy/MM/dd",
           },
           onChange: (e) => console.log(e),
           defaultValue: new Date(),
@@ -220,7 +479,7 @@ const Demo = (props) => {
           component: "Radio",
           name: "radiogroup",
           label: "Radio Group",
-          row: true,
+          // row: true,
           options: [
             { label: "Uno", value: 1, disabled: true },
             { label: "Dos", value: 2, color: "primary" },
@@ -239,7 +498,7 @@ const Demo = (props) => {
           ],
           inputProps: {
             isDisabled: false,
-            isMulti: true,
+            // isMulti: true,
             placeholder: "hola",
           },
           onChange: (e) => console.log(e),
@@ -297,7 +556,18 @@ const Demo = (props) => {
 
   return (
     <div>
-      <App definition={normalDefinition} onSubmit={onSubmit}>
+      <AppBar position="static">
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="simple tabs example"
+        >
+          <Tab label="Item One" {...a11yProps(0)} />
+          <Tab label="Item Two" {...a11yProps(1)} />
+          <Tab label="Item Three" {...a11yProps(2)} />
+        </Tabs>
+      </AppBar>
+      <App definition={tabsDefinition} onSubmit={onSubmit} active={value}>
         <Button type="submit" variant="contained" color="primary">
           Submit
         </Button>

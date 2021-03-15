@@ -1,95 +1,48 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-// CORE COMPONENTS AND MOLECULES TO USE
-import {
-  Grid,
-  makeStyles,
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Typography
-} from '@material-ui/core/'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import GridForm from '../../molecules/Grid'
-//MAIN FUNCTION
-/*
- @param props: component properties
- @param ref: reference made by React.forward
-*/
-const useStyles = makeStyles((theme) => ({
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    flexBasis: '33.33%',
-    flexShrink: 0,
-  },
-  secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary,
-  },
-}))
-const AccordionOrganism = React.forwardRef((props, ref) => {
-  const { name, title, description, groups, onChange, direction, justify, alignItems, children, ...rest } = props
-  const [expanded, setExpanded] = React.useState(null)
-  const classes = useStyles()
-  const handleChange = panel => {
-    if (expanded === panel) {
-      setExpanded(false)
-    } else {
-      setExpanded(panel)
-    }
-  }
-  // Properties of the organism
+import React from "react";
+import PropTypes from "prop-types";
+import MuiAccordion from "@material-ui/core/Accordion";
+import MuiAccordionSummary from "@material-ui/core/AccordionSummary";
+import MuiAccordionDetails from "@material-ui/core/AccordionDetails";
+import Typography from "@material-ui/core/Typography";
+import Grid from "../../molecules/Grid";
+
+export default function CustomizedAccordion(props) {
+  const { groups, accordionProps, ...rest } = props;
+  // Accordion State
+  const [expanded, setExpanded] = React.useState(0);
+
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
+  // Building each group
   return (
-    /* 
-     @prop data-testid: Id to use inside accordion.test.js file.
-     */
-    <Grid
-      container
-      direction={direction}
-      justify={justify}
-      alignItems={alignItems}
-      alignContent='space-around' //'stretch' 'center' 'flex-start' 'flex-end' 'space-between' 'space-around'
-      data-testid={'GridTestId'}
-      spacing={1}
-      {...rest}
-    >
-      {groups.map((group, key) => {
-        return (
-          <Grid item key={key} xs={12} sm={12} md={12} lg={12} xl={12}>
-            <Accordion expanded={expanded === `panel${key}`} onChange={() => handleChange(`panel${key}`)} key={key}>
-              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography className={classes.heading}>{group.title}</Typography>
-                <Typography className={classes.secondaryHeading}>{group.description}</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <GridForm {...group} onChange={onChange} />
-              </AccordionDetails>
-            </Accordion>
-          </Grid>
-        )
-      })}
-    </Grid>
-  )
-})
-// Type and required properties
-AccordionOrganism.propTypes = {
-  groups: PropTypes.array.isRequired,
-  onChange: PropTypes.func.isRequired,
-  name: PropTypes.string,
-  title: PropTypes.string,
-  description: PropTypes.string,
-  direction: PropTypes.string,
-  justify: PropTypes.string,
-  alignItems: PropTypes.string
-}
-// Default properties
-AccordionOrganism.defaultProps = {
-  name: null,
-  title: '',
-  description: '',
-  direction: 'row',
-  justify: 'flex-start',
-  alignItems: 'flex-start'
+    <div data-testid={"AccordionTestId"} {...accordionProps}>
+      {groups.map((group, key) => (
+        <MuiAccordion
+          square
+          expanded={expanded === key}
+          onChange={handleChange(key)}
+          key={key}
+        >
+          <MuiAccordionSummary
+            aria-controls="panel1d-content"
+            id="panel1d-header"
+            {...(group.groupProps && group.groupProps.summary)}
+          >
+            <Typography>{group.name}</Typography>
+          </MuiAccordionSummary>
+          <MuiAccordionDetails
+            {...(group.groupProps && group.groupProps.details)}
+          >
+            <Grid components={group.components} {...rest} />
+          </MuiAccordionDetails>
+        </MuiAccordion>
+      ))}
+    </div>
+  );
 }
 
-export default AccordionOrganism
+CustomizedAccordion.propTypes = {
+  groups: PropTypes.array,
+};
+CustomizedAccordion.defaultProps = {};

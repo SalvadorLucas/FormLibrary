@@ -62,7 +62,6 @@ const CheckBoxAtom = React.forwardRef((props, ref) => {
                       defaultValue={
                         option.defaultValue ? option.defaultValue : false
                       }
-                      rules={{ ...rules }}
                     />
                   }
                   {...option}
@@ -96,7 +95,6 @@ const CheckBoxAtom = React.forwardRef((props, ref) => {
                     defaultValue={
                       option.defaultValue ? option.defaultValue : false
                     }
-                    rules={{ ...rules }}
                   />
                 }
                 {...option}
@@ -105,11 +103,6 @@ const CheckBoxAtom = React.forwardRef((props, ref) => {
           </FormGroup>
         </div>
       )}
-      <ErrorMessage
-        errors={errors}
-        name={name}
-        render={({ message }) => <p>{message}</p>}
-      />
     </div>
   );
 });
