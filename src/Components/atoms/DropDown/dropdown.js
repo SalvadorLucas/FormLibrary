@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Controller } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
-import Select from "react-select";
-import { Tooltip } from "@material-ui/core";
-// CORE COMPONENTS
+import ReactSelect from "react-select";
+import { Tooltip, Typography } from "@material-ui/core";
+
 //MAIN FUNCTION
 /*
  @param props: component properties
@@ -26,6 +25,23 @@ const DropDownAtom = React.forwardRef((props, ref) => {
     rules,
     ...rest
   } = props;
+
+  let selectRef = React.createRef();
+
+  React.useLayoutEffect(() => {
+    errors[name] && selectRef.select.focus();
+  }, [errors[name]]);
+
+  const styles = {
+    control: (base, state) => ({
+      ...base,
+      borderColor: errors[name] && "hsl(0,100%, 50%)",
+    }),
+  };
+  // const styles = {
+  //   control: (base, state) => console.log(base),
+  // };
+
   return (
     /* 
      @prop data-testid: Id to use inside dropdown.test.js file.
@@ -37,16 +53,27 @@ const DropDownAtom = React.forwardRef((props, ref) => {
             <Controller
               control={control}
               name={name}
-              render={({ onChange, onBlur, value, ref }) => (
-                <Select
+              render={({
+                field: { onChange, onBlur, value, name, ref },
+                fieldState: { invalid, isTouched, isDirty, error },
+                formState,
+              }) => (
+                <ReactSelect
                   inputref={ref}
+                  ref={(ref) => {
+                    selectRef = ref;
+                  }}
                   value={value}
                   onChange={(e) => {
                     onChange(e);
                     props.onChange && props.onChange(e);
                   }}
                   options={options}
+                  styles={styles}
                   {...inputProps}
+                  placeholder={
+                    rules && rules.required && inputProps.placeholder + " *"
+                  }
                 />
               )}
               defaultValue={defaultValue ? defaultValue : []}
@@ -58,8 +85,12 @@ const DropDownAtom = React.forwardRef((props, ref) => {
         <Controller
           control={control}
           name={name}
-          render={({ onChange, onBlur, value, ref }) => (
-            <Select
+          render={({
+            field: { onChange, onBlur, value, name, ref },
+            fieldState: { invalid, isTouched, isDirty, error },
+            formState,
+          }) => (
+            <ReactSelect
               inputref={ref}
               value={value}
               onChange={(e) => {
@@ -67,18 +98,20 @@ const DropDownAtom = React.forwardRef((props, ref) => {
                 props.onChange && props.onChange(e);
               }}
               options={options}
+              styles={styles}
               {...inputProps}
+              placeholder={
+                rules && rules.required && inputProps.placeholder + " *"
+              }
             />
           )}
           defaultValue={defaultValue ? defaultValue : []}
           rules={{ ...rules }}
         />
       )}
-      <ErrorMessage
-        errors={errors}
-        name={name}
-        render={({ message }) => <p>{message}</p>}
-      />
+      <Typography variant="caption" color="error">
+        {errors[name] && errors[name].message}
+      </Typography>
     </div>
   );
 });

@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { TextField, Tooltip } from "@material-ui/core";
+import { TextField, Tooltip, Typography } from "@material-ui/core";
 import { Controller } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 
 export default function TextFieldAtom(props) {
   const {
@@ -22,35 +21,49 @@ export default function TextFieldAtom(props) {
       <Controller
         control={control}
         name={name}
-        render={({ onChange, value, ref }) =>
+        render={({
+          field: { onChange, onBlur, value, name, ref },
+          fieldState: { invalid, isTouched, isDirty, error },
+          formState,
+        }) =>
           helper ? (
             <Tooltip {...helper}>
               <TextField
+                fullWidth
+                onBlur={onBlur}
                 inputRef={ref}
+                error={(error && true) || false}
                 onChange={onChange}
                 value={value}
                 InputLabelProps={{ shrink: true }}
                 {...inputProps}
+                label={
+                  (rules && rules.required && inputProps.label + " *") ||
+                  inputProps.label
+                }
               />
             </Tooltip>
           ) : (
             <TextField
+              fullWidth
               inputRef={ref}
               onChange={onChange}
               value={value}
               InputLabelProps={{ shrink: true }}
               {...inputProps}
+              label={
+                (rules && rules.required && inputProps.label + " *") ||
+                inputProps.label
+              }
             />
           )
         }
         defaultValue={defaultValue ? defaultValue : ""}
         rules={{ ...rules }}
       />
-      <ErrorMessage
-        errors={errors}
-        name={name}
-        render={({ message }) => <p>{message}</p>}
-      />
+      <Typography variant="caption" color="error">
+        {errors[name] && errors[name].message}
+      </Typography>
     </div>
   );
 }

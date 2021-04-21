@@ -2,8 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 // CORE COMPONENTS
 import { Controller } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
-import { Switch, Tooltip, FormControlLabel } from "@material-ui/core";
+import {
+  Switch,
+  Tooltip,
+  FormControlLabel,
+  Typography,
+} from "@material-ui/core";
 
 //MAIN FUNCTION
 /*
@@ -33,7 +37,11 @@ const SwitchAtom = React.forwardRef((props, ref) => {
       <Controller
         control={control}
         name={name}
-        render={({ onChange, onBlur, value, ref }) =>
+        render={({
+          field: { onChange, onBlur, value, name, ref },
+          fieldState: { invalid, isTouched, isDirty, error },
+          formState,
+        }) =>
           helper ? (
             <Tooltip {...helper}>
               <FormControlLabel
@@ -49,7 +57,7 @@ const SwitchAtom = React.forwardRef((props, ref) => {
                     {...inputProps}
                   />
                 }
-                label={label}
+                label={(rules && rules.required && label + " *") || label}
               />
             </Tooltip>
           ) : (
@@ -66,18 +74,16 @@ const SwitchAtom = React.forwardRef((props, ref) => {
                   {...inputProps}
                 />
               }
-              label={label}
+              label={(rules && rules.required && label + " *") || label}
             />
           )
         }
         defaultValue={defaultValue ? defaultValue : false}
         rules={{ ...rules }}
       />
-      <ErrorMessage
-        errors={errors}
-        name={name}
-        render={({ message }) => <p>{message}</p>}
-      />
+      <Typography variant="caption" color="error">
+        {errors[name] && errors[name].message}
+      </Typography>
     </div>
   );
 });

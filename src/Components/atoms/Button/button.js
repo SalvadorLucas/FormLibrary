@@ -21,7 +21,7 @@ const ButtonAtom = React.forwardRef((props, ref) => {
     label,
     helper,
     onClick,
-    buttonProps,
+    inputProps,
     ...rest
   } = props;
 
@@ -33,7 +33,11 @@ const ButtonAtom = React.forwardRef((props, ref) => {
       <Controller
         control={control}
         name={name}
-        render={({ onChange, onBlur, value, ref }) =>
+        render={({
+          field: { onChange, onBlur, value, name, ref },
+          fieldState: { invalid, isTouched, isDirty, error },
+          formState,
+        }) =>
           helper ? (
             <Tooltip {...helper}>
               <span>
@@ -42,7 +46,7 @@ const ButtonAtom = React.forwardRef((props, ref) => {
                   onClick={(e) => {
                     props.onClick && props.onClick(e);
                   }}
-                  {...buttonProps}
+                  {...inputProps}
                 >
                   {label}
                 </Button>
@@ -54,7 +58,7 @@ const ButtonAtom = React.forwardRef((props, ref) => {
               onClick={(e) => {
                 props.onClick && props.onClick(e);
               }}
-              {...buttonProps}
+              {...inputProps}
             >
               {label}
             </Button>

@@ -2,13 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import DateFnsUtils from "@date-io/date-fns";
 // CORE COMPONENTS
-import { ErrorMessage } from "@hookform/error-message";
 import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import { Controller } from "react-hook-form";
-import { Tooltip } from "@material-ui/core";
+import { Tooltip, Typography } from "@material-ui/core";
 //MAIN FUNCTION
 /*
  @param props: component properties
@@ -37,18 +36,34 @@ const DateAtom = React.forwardRef((props, ref) => {
         <Controller
           control={control}
           name={name}
-          render={({ onChange, onBlur, value, ref }) =>
+          render={({
+            field: { onChange, onBlur, value, name, ref },
+            fieldState: { invalid, isTouched, isDirty, error },
+            formState,
+          }) =>
             helper ? (
               <Tooltip {...helper}>
                 <div>
                   <KeyboardDatePicker
+                    onBlur={onBlur}
                     value={value}
                     inputRef={ref}
+                    error={(error && true) || false}
+                    allowKeyboardControl
+                    fullWidth
+                    maxDateMessage=""
+                    minDateMessage=""
+                    invalidDateMessage=""
+                    InputLabelProps={{ shrink: true }}
                     onChange={(date) => {
                       props.onChange && props.onChange(date);
                       onChange(date);
                     }}
                     {...inputProps}
+                    label={
+                      (rules && rules.required && inputProps.label + " *") ||
+                      inputProps.label
+                    }
                   />
                 </div>
               </Tooltip>
@@ -56,23 +71,27 @@ const DateAtom = React.forwardRef((props, ref) => {
               <KeyboardDatePicker
                 value={value}
                 inputRef={ref}
+                allowKeyboardControl
+                fullWidth
                 onChange={(date) => {
                   props.onChange && props.onChange(date);
                   onChange(date);
                 }}
                 {...inputProps}
+                label={
+                  (rules.required && inputProps.label + " *") ||
+                  inputProps.label
+                }
               />
             )
           }
-          defaultValue={defaultValue ? defaultValue : new Date()}
           rules={{ ...rules }}
+          defaultValue={defaultValue ? defaultValue : new Date()}
         />
       </MuiPickersUtilsProvider>
-      <ErrorMessage
-        errors={errors}
-        name={name}
-        render={({ message }) => <p>{message}</p>}
-      />
+      <Typography variant="caption" color="error">
+        {errors[name] && errors[name].message}
+      </Typography>
     </div>
   );
 });

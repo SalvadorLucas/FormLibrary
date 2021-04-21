@@ -16,7 +16,7 @@ export default function App(props) {
     getValues,
     control,
     register,
-    errors,
+    formState: { errors },
   } = useForm();
   // Extracting the definition JSON
   const definitionObject = definition({ setValue, getValues, reset });
@@ -38,7 +38,7 @@ export default function App(props) {
         {children}
       </form>
     );
-  } else if(definitionObject.tabs){
+  } else if (definitionObject.tabs) {
     // Tabs Form
     return (
       <form onSubmit={handleSubmit(onSubmit)}>

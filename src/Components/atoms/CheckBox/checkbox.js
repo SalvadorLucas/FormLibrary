@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 // CORE COMPONENTS
 import { Controller } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 import {
   FormControlLabel,
   Checkbox,
@@ -25,9 +24,8 @@ const CheckBoxAtom = React.forwardRef((props, ref) => {
     name,
     options,
     helper,
-    checkProps,
+    inputProps,
     onChange,
-    rules,
     ...rest
   } = props;
 
@@ -48,15 +46,20 @@ const CheckBoxAtom = React.forwardRef((props, ref) => {
                     <Controller
                       control={control}
                       name={name + key}
-                      render={({ onChange, onBlur, value, name, ref }) => (
+                      render={({
+                        field: { onChange, onBlur, value, name, ref },
+                        fieldState: { invalid, isTouched, isDirty, error },
+                        formState,
+                      }) => (
                         <Checkbox
+                          onBlur={onBlur}
                           onChange={(e) => {
                             props.onChange && props.onChange(e);
                             onChange(e.target.checked);
                           }}
                           checked={value}
                           inputRef={ref}
-                          {...checkProps}
+                          {...inputProps}
                         />
                       )}
                       defaultValue={
@@ -81,15 +84,20 @@ const CheckBoxAtom = React.forwardRef((props, ref) => {
                   <Controller
                     control={control}
                     name={name + key}
-                    render={({ onChange, onBlur, value, name, ref }) => (
+                    render={({
+                      field: { onChange, onBlur, value, name, ref },
+                      fieldState: { invalid, isTouched, isDirty, error },
+                      formState,
+                    }) => (
                       <Checkbox
+                        onBlur={onBlur}
                         onChange={(e) => {
                           props.onChange && props.onChange(e);
                           onChange(e.target.checked);
                         }}
                         checked={value}
                         inputRef={ref}
-                        {...checkProps}
+                        {...inputProps}
                       />
                     )}
                     defaultValue={

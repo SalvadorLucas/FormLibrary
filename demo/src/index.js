@@ -7,7 +7,7 @@ import { USER_LIST } from "./query";
 import { Add } from "@material-ui/icons";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
-import Tab from '@material-ui/core/Tab';
+import Tab from "@material-ui/core/Tab";
 
 const Client = new ApolloClient({
   cache: new InMemoryCache({
@@ -192,7 +192,10 @@ const tabsDefinition = (props) => {
             component: "CheckBox",
             name: "checkbox",
             title: "Check Box Group",
-            options: [{ label: "Hola", defaultValue: false }, { label: "Adios", defaultValue: false }],
+            options: [
+              { label: "Hola", defaultValue: false },
+              { label: "Adios", defaultValue: false },
+            ],
             checkProps: { color: "secondary" },
             onChange: (e) => console.log(e.target.checked),
             helper: { title: "ayuda", placement: "top-start", arrow: true },
@@ -414,7 +417,7 @@ const tabsDefinition = (props) => {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -445,6 +448,9 @@ const Demo = (props) => {
           defaultValue: "Hola mundo",
           rules: {
             required: "It's required",
+            validate: (value) => {
+              return "No valido";
+            },
           },
         },
         {
@@ -464,7 +470,7 @@ const Demo = (props) => {
           inputProps: {
             autoOk: true,
             variant: "inline",
-            inputVariant: "outlined",
+            inputVariant: "standard",
             label: "DatePicker",
             disabled: false,
             format: "yyyy/MM/dd",
@@ -472,7 +478,12 @@ const Demo = (props) => {
           onChange: (e) => console.log(e),
           defaultValue: new Date(),
           helper: { title: "ayuda", placement: "right", arrow: true },
-          rules: { required: "It's required" },
+          rules: {
+            required: "It's required",
+            validate:(value)=>{
+              return "no valid"
+            }
+          },
         },
         {
           sizes: [12, 6, 4, 3, 2],
@@ -486,7 +497,13 @@ const Demo = (props) => {
           ],
           defaultValue: { label: "Uno", value: 1 },
           helper: { title: "ayuda", placement: "top-start", arrow: true },
-          rules: { required: "It's required" },
+          rules: {
+            required: "It's required",
+            validate: (value) => {
+              console.log(value);
+              return "validate";
+            },
+          },
         },
         {
           sizes: [12, 6, 4, 3, 2],
@@ -498,13 +515,18 @@ const Demo = (props) => {
           ],
           inputProps: {
             isDisabled: false,
-            // isMulti: true,
+            isMulti: true,
             placeholder: "hola",
           },
           onChange: (e) => console.log(e),
-          // defaultValue: { label: "Uno", value: 1 },
+          defaultValue: { label: "Uno", value: 1 },
           helper: { title: "ayuda", placement: "right", arrow: true },
-          // rules: { required: "It's required" },
+          rules: {
+            required: "It's required",
+            validate: (value) => {
+              return "no valid";
+            },
+          },
         },
         {
           sizes: [12, 6, 4, 3, 2],
@@ -515,7 +537,12 @@ const Demo = (props) => {
           defaultValue: true,
           inputProps: { disabled: false, color: "primary" },
           helper: { title: "ayuda", placement: "right", arrow: true },
-          rules: {},
+          rules: {
+            required: "is required",
+            validate: (value) => {
+              return "validate";
+            },
+          },
         },
         {
           sizes: [12, 6, 4, 3, 2],
@@ -544,7 +571,13 @@ const Demo = (props) => {
             input: {},
           },
           helper: { title: "ayuda", placement: "right", arrow: true },
-          // rules: { required: "It's required" },
+          rules: {
+            required: "It's required",
+            validate: (value) => {
+              console.log(value);
+              return "validate";
+            },
+          },
         },
       ],
     };
@@ -556,21 +589,8 @@ const Demo = (props) => {
 
   return (
     <div>
-      <AppBar position="static">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="simple tabs example"
-        >
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} />
-        </Tabs>
-      </AppBar>
-      <App definition={tabsDefinition} onSubmit={onSubmit} active={value}>
-        <Button type="submit" variant="contained" color="primary">
-          Submit
-        </Button>
+      <App definition={normalDefinition} onSubmit={onSubmit}>
+        <Button type="submit">Submit</Button>
       </App>
     </div>
   );

@@ -2,8 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 // CORE COMPONENTS
 import { Controller } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
-import { Tooltip, Button, Input, InputLabel } from "@material-ui/core";
+import { Tooltip, Button, Typography } from "@material-ui/core";
 import { DropzoneDialog } from "material-ui-dropzone";
 //MAIN FUNCTION
 /*
@@ -42,19 +41,23 @@ const UploadFileAtom = React.forwardRef((props, ref) => {
         <Tooltip {...helper}>
           <div>
             <Button onClick={onClick} {...(customProps && customProps.button)}>
-              {label}
+              {(rules && rules.required && label + " *") || label}
             </Button>
           </div>
         </Tooltip>
       ) : (
         <Button onClick={onClick} {...(customProps && customProps.button)}>
-          {label}
+          {(rules && rules.required && label + " *") || label}
         </Button>
       )}
       <Controller
         control={control}
         name={name}
-        render={({ onChange, onBlur, value, ref }) => (
+        render={({
+          field: { onChange, onBlur, value, name, ref },
+          fieldState: { invalid, isTouched, isDirty, error },
+          formState,
+        }) => (
           <DropzoneDialog
             open={open}
             onClose={onClick}
@@ -70,11 +73,9 @@ const UploadFileAtom = React.forwardRef((props, ref) => {
         defaultValue={defaultValue ? defaultValue : ""}
         rules={{ ...rules }}
       />
-      <ErrorMessage
-        errors={errors}
-        name={name}
-        render={({ message }) => message}
-      />
+      <Typography variant="caption" color="error">
+        {errors[name] && errors[name].message}
+      </Typography>
     </div>
   );
 });
