@@ -29,7 +29,7 @@ const DropDownAtom = React.forwardRef((props, ref) => {
   let selectRef = React.createRef();
 
   React.useLayoutEffect(() => {
-    errors[name] && selectRef.select.focus();
+    errors[name] && selectRef.select && selectRef.select.focus();
   }, [errors[name]]);
 
   const styles = {
