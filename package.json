@@ -1,6 +1,6 @@
 {
   "name": "ebs-form",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "ebs-form React component",
   "main": "lib/index.js",
   "files": [
@@ -37,13 +37,10 @@
     "react-number-format": "^4.4.1",
     "react-select": "^3.1.1"
   },
-  "peerDependencies": {
-    "react": "16.x"
-  },
   "devDependencies": {
     "nwb": "0.23.x",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "author": "",
   "homepage": "",
